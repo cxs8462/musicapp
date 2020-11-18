@@ -1,0 +1,115 @@
+<template>
+  <div
+    class="playItem"
+    @click="
+      () => {
+        $emit('onPlayItem', data.id);
+      }
+    "
+  >
+    <div class="img">
+      <p class="playCount">播放量 : {{ playCount }}万</p>
+      <el-image :src="data.coverImgUrl + '?param=300y300'" />
+      <p class="bofang"><i class="el-icon-video-play"></i></p>
+      <p
+        class="set"
+        v-if="set"
+        @click.stop="
+          () => {
+            $emit('set', data);
+          }
+        "
+      >
+        {{ set }}
+      </p>
+    </div>
+    <h5>{{ data.name }}</h5>
+    <p class="description">{{ data.description }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "playItem",
+  computed: {
+    playCount() {
+      return Math.floor(this.data.playCount / 10000);
+    }
+  },
+  props: ["data", "set"]
+};
+</script>
+
+<style lang="less" scoped>
+.playItem {
+  overflow: hidden;
+  .img {
+    position: relative;
+    cursor: pointer;
+    height: 300px;
+    overflow: hidden;
+    .playCount {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: white;
+      font-size: 15px;
+      background-color: #4c4c4c55;
+      padding: 10px 0 10px 10px;
+      transition: all 0.5s ease-in-out;
+      transform: translateY(-100%);
+      margin-right: 30px;
+      z-index: 1;
+    }
+    .bofang {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 90px;
+      color: var(--header-color);
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+    }
+    .set {
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      color: white;
+      background-color: #4c4c4c55;
+      height: 40px;
+      font-size: 22px;
+      transition: all 0.5s ease-in-out;
+      bottom: 0;
+      transform: translateY(100%);
+      &:hover {
+        color: var(--header-color);
+      }
+    }
+    &:hover {
+      .playCount {
+        transform: translateY(0);
+      }
+      .bofang {
+        opacity: 1;
+      }
+      .set {
+        transform: translateY(0);
+      }
+    }
+  }
+  h5 {
+    font-size: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .description {
+    font-size: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+</style>
