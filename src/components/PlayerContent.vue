@@ -15,6 +15,7 @@
         />
         <i class="el-icon-chat-line-round" />
         <i class="el-icon-share" />
+        <i class="el-icon-download" @click="downMp3" />
       </div>
       <div class="playerContentBox" ref="playerContentBox">
         <div>
@@ -61,7 +62,7 @@ import { getPl } from "@/api/player";
 import CommentsList from "@/components/commentsList";
 import { fsPl, likeSong } from "@/api/my";
 import ToComments from "@/components/toComments";
-
+import axios from "axios";
 export default {
   name: "PlayContent",
   components: { ToComments, CommentsList },
@@ -155,6 +156,20 @@ export default {
             this.$message.warning("请不要重复添加！");
           }
         }
+      });
+    },
+    downMp3() {
+      axios({
+        method: "get",
+        url: this.data.url,
+        responseType: "blob"
+      }).then(res => {
+        const href = URL.createObjectURL(res.data); //根据二进制对象创造新的链接
+        const a = document.createElement("a");
+        a.setAttribute("href", href);
+        a.setAttribute("download", this.data.name);
+        a.click();
+        URL.revokeObjectURL(href);
       });
     }
   }
