@@ -41,3 +41,6 @@ commentId :回复的评论id (回复评论时必填)
  */
 export const fsPl = (type, id, content) =>
   req("/comment", { type, id, content, t: 1 });
+
+//歌手收藏
+export const mySinger = () => req("/artist/sublist");

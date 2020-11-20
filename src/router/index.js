@@ -119,6 +119,15 @@ const routes = [
           keepAlive: true,
           needLogin: false
         }
+      },
+      {
+        path: "mysinger",
+        name: "歌手收藏",
+        component: () => import("@/views/my/mySinger"),
+        meta: {
+          keepAlive: false,
+          needLogin: true
+        }
       }
     ]
   }

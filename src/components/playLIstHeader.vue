@@ -13,9 +13,11 @@
         <img :src="data.coverImgUrl + '?param=300y300'" />
       </div>
       <div class="right">
-        <el-tag size="medium " effect="plain" type="danger">精品歌单</el-tag>
-        <h4>{{ data.copywriter + " | " + data.name }}</h4>
-        <p>{{ data.description }}</p>
+        <el-scrollbar style="height: 100%;">
+          <el-tag size="medium " effect="plain" type="danger">精品歌单</el-tag>
+          <h4>{{ data.copywriter + " | " + data.name }}</h4>
+          <p>{{ data.description }}</p>
+        </el-scrollbar>
       </div>
     </div>
   </div>

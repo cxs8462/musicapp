@@ -107,7 +107,6 @@ export default {
         this.select.type,
         this.select.area
       ).then(r => {
-        console.log(r);
         this.page.more = r.more;
         this.data = r.artists;
       });

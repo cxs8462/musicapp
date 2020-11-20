@@ -184,7 +184,12 @@ export const setSinger = {
       });
     },
     qxscSinger(id) {
-      qxscSinger(id);
+      qxscSinger(id).then(r => {
+        if (r.code === 200) {
+          this.$message.success("取消收藏成功！");
+          this.getData()
+        }
+      });
     }
   }
 };

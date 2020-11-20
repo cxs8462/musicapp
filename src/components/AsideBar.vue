@@ -24,7 +24,11 @@
         :key="item.name"
         :index="item.name"
         :class="{ itemSelect: RouteName === item.name }"
-        @click="$router.push({ name: item.name })"
+        @click="
+          () => {
+            RouteName === item.name ? '' : $router.push({ name: item.name });
+          }
+        "
         class="sideBarItem"
       >
         <p style="margin: 0"><i :class="item.icon"></i>{{ item.name }}</p>
@@ -88,6 +92,10 @@ export default {
         {
           name: "歌单收藏",
           icon: "el-icon-s-management"
+        },
+        {
+          name: "歌手收藏",
+          icon: "el-icon-user-solid"
         }
       ]
     };
