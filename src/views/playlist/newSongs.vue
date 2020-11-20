@@ -1,12 +1,7 @@
 <template>
   <div class="newSongs">
     <ui-tag :tags="type" :tag="tag" @change="change" />
-    <song-list
-      :data="data"
-      @onSong="onSong"
-      set="添加到我喜欢"
-      @set="addMyLove"
-    />
+    <song-list :data="data" @onSong="onSong" set="添加到我喜欢" @set="add" />
   </div>
 </template>
 
@@ -14,10 +9,12 @@
 import { getNewSongs } from "@/api/playlist";
 import UiTag from "@/components/UiTag";
 import SongList from "@/components/songList";
-import { likeSong } from "@/api/my";
+import { songSet } from "@/until/mixin";
+
 export default {
   name: "newSongs",
   components: { SongList, UiTag },
+  mixins: [songSet],
   created() {
     this.getData(0);
   },
@@ -66,20 +63,6 @@ export default {
       this.tag = name;
       const value = this.type.filter(r => r.name === name)[0].id;
       this.getData(value);
-    },
-    onSong(item) {
-      this.$store.dispatch("player/getSong",item.id)
-    },
-    addMyLove(id) {
-      likeSong(id, true).then(r => {
-        if (r.code === 200) {
-          if (r.songs) {
-            this.$message.success("收藏成功！");
-          } else {
-            this.$message.warning("请不要重复添加！");
-          }
-        }
-      });
     }
   }
 };

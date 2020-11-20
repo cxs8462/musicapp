@@ -60,12 +60,15 @@ import Lyric from "@/until/lryParse";
 import BScroll from "@better-scroll/core";
 import { getPl } from "@/api/player";
 import CommentsList from "@/components/commentsList";
-import { fsPl, likeSong } from "@/api/my";
+import { fsPl } from "@/api/my";
 import ToComments from "@/components/toComments";
 import axios from "axios";
+import { songSet } from "@/until/mixin";
+
 export default {
   name: "PlayContent",
   components: { ToComments, CommentsList },
+  mixins: [songSet],
   data() {
     return {
       lry: {},
@@ -144,17 +147,6 @@ export default {
         if (r.code === 200) {
           this.$message.success("发表成功！");
           this.getPl(this.data.id);
-        }
-      });
-    },
-    add(id) {
-      likeSong(id, true).then(r => {
-        if (r.code === 200) {
-          if (r.songs) {
-            this.$message.success("收藏成功！");
-          } else {
-            this.$message.warning("请不要重复添加！");
-          }
         }
       });
     },

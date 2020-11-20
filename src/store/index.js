@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import mv from "@/store/modules/mv"
 import player from "@/store/modules/player"
+import user from "@/store/modules/user"
 import { Login, getStatus } from "@/api/login";
 import { Message } from "element-ui";
 Vue.use(Vuex);
@@ -58,6 +59,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    mv,player
+    mv,player,user
   }
 });

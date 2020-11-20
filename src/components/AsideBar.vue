@@ -38,20 +38,11 @@
 </template>
 
 <script>
-import jscookie from "js-cookie";
 export default {
   name: "AsideBar",
   methods: {
     zx() {
-      this.$confirm("注销?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-        center: true
-      }).then(() => {
-        jscookie.remove("MUSIC_U");
-        this.$store.commit("setIsLogin", false);
-      });
+      this.$store.commit("user/setUserId",this.$store.state.myConfig.userId)
     }
   },
   data() {

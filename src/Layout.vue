@@ -46,13 +46,17 @@
       :src="player.selectItem.url"
       autoplay
     />
+    <!--    播放器背景板-->
     <player-content />
+    <!--    播放器列表-->
     <player-list
       :show="player.listShow"
       :data="player.list"
       :select="player.selectItem"
       @setSelect="setSelect"
     />
+    <!--    用户信息-->
+    <user-info />
   </div>
 </template>
 
@@ -67,8 +71,10 @@ import { likeMv } from "@/api/my";
 import playerContent from "@/components/PlayerContent";
 import PlayerList from "@/components/playerList";
 import Toast from "@/until/message";
+import UserInfo from "@/components/userInfo";
 export default {
   components: {
+    UserInfo,
     PlayerList,
     playerContent,
     HeaderBar,
@@ -120,6 +126,10 @@ export default {
       this.$store.commit("mv/setMvBox", true);
     },
     likeMv(id, t) {
+      if (!this.$store.state.isLogin) {
+        this.$message.info("请登入后操作！");
+        return;
+      }
       likeMv(id, t).then(r => {
         if (r.code === 200) {
           this.getMvData(id);
@@ -137,6 +147,9 @@ export default {
 <style lang="less">
 * {
   transition: background-color 0.5s ease-in-out;
+}
+.el-dialog__wrapper{
+  transition-duration: 0.3s;
 }
 #layout {
   height: 100vh;
@@ -238,6 +251,9 @@ p {
 }
 .el-loading-text {
   color: var(--header-color) !important;
+}
+.el-tag {
+  cursor: pointer;
 }
 .mvAll {
   display: flex;

@@ -131,6 +131,10 @@ export const singerFl = {
 export const songSet = {
   methods: {
     add(id) {
+      if (!this.$store.state.isLogin) {
+        this.$message.info("请登入后操作！");
+        return;
+      }
       likeSong(id, true).then(r => {
         if (r.code === 200) {
           if (r.songs) {
@@ -175,6 +179,10 @@ export const setSinger = {
       this.$router.push({ path: "/singerdetail/" + id });
     },
     scSinger(id) {
+      if (!this.$store.state.isLogin) {
+        this.$message.info("请登入后操作！");
+        return;
+      }
       scSinger(id).then(r => {
         if (r.code === 200) {
           this.$message.success("收藏成功！");
@@ -187,7 +195,7 @@ export const setSinger = {
       qxscSinger(id).then(r => {
         if (r.code === 200) {
           this.$message.success("取消收藏成功！");
-          this.getData()
+          this.getData();
         }
       });
     }
