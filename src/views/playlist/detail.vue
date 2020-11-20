@@ -59,15 +59,17 @@
 <script>
 import { getSongDetail, plPlayList } from "@/api/playlist";
 import { getCreateTime } from "@/until/time";
-import { scPlayList, likeSong } from "@/api/my";
+import { scPlayList } from "@/api/my";
 import SongList from "@/components/songList";
 import CommentsList from "@/components/commentsList";
 import ToComments from "@/components/toComments";
 import { fsPl } from "@/api/my";
+import { songSet } from "@/until/mixin";
 
 export default {
   name: "detail",
   components: { ToComments, CommentsList, SongList },
+  mixins: [songSet],
   created() {
     this.id = this.$route.params.id;
     this.getData(this.id);
@@ -111,20 +113,6 @@ export default {
     },
     getTime(t) {
       return getCreateTime(t);
-    },
-    add(id) {
-      likeSong(id, true).then(r => {
-        if (r.code === 200) {
-          if (r.songs) {
-            this.$message.success("收藏成功！");
-          } else {
-            this.$message.warning("请不要重复添加！");
-          }
-        }
-      });
-    },
-    onSong(item) {
-      this.$store.dispatch("player/getSong",item.id)
     },
     sc() {
       scPlayList(1, this.data.id).then(r => {

@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import mixin from "@/until/mixin";
+import {fl} from "@/until/mixin";
 import UiTag from "@/components/UiTag";
 import { mvAll } from "@/api/Mv";
 import MvItem from "@/components/MvItem";
@@ -54,7 +54,7 @@ export default {
     this.getData();
   },
   name: "mvall",
-  mixins: [mixin],
+  mixins: [fl],
   watch: {
     "page.pageNub": {
       handler() {
@@ -109,15 +109,6 @@ export default {
 
 <style lang="less" scoped>
 .mv {
-  .mvAll {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    .timvItem {
-      width: 22%;
-      margin-top: 20px;
-      align-self: flex-start;
-    }
-  }
+
 }
 </style>

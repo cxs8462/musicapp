@@ -101,6 +101,24 @@ const routes = [
           keepAlive: false,
           needLogin: false
         }
+      },
+      {
+        path: "singerdetail/:id",
+        name: "歌手详情",
+        component: () => import("@/views/singer/singerDetail"),
+        meta: {
+          keepAlive: false,
+          needLogin: false
+        }
+      },
+      {
+        path: "allsinger",
+        name: "全部歌手",
+        component: () => import("@/views/singer/allSinger"),
+        meta: {
+          keepAlive: true,
+          needLogin: false
+        }
       }
     ]
   }
@@ -111,7 +129,8 @@ const router = new VueRouter({
 });
 //路由守卫
 router.beforeEach((to, from, next) => {
-  if (!from.name && to.name !== "首页") next({ name: "首页" });
+  if (to.meta.needLogin && !from.name && to.name !== "首页")
+    next({ name: "首页" });
   else {
     if (to.meta.needLogin) {
       if (!store.state.isLogin) {

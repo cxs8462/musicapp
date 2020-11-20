@@ -2,8 +2,8 @@
   <ul class="tags">
     <li v-for="item in tags" :key="item.id">
       <a
-        @click="$emit('change', item.name)"
-        :class="{ select: item.name === tag }"
+        @click="$emit('change', item)"
+        :class="{ select: item.value === tag }"
         >{{ item.name }}</a
       >
     </li>
@@ -12,14 +12,14 @@
 
 <script>
 export default {
-  name: "UiTag",
+  name: "newUiTag",
   props: ["tags", "tag"]
 };
 </script>
 
 <style lang="less" scoped>
 .tags {
-  text-align: right;
+  text-align: left;
   li {
     list-style: none;
     display: inline-block;
@@ -28,7 +28,7 @@ export default {
       text-decoration: none;
       font-size: 20px;
       cursor: pointer;
-      color: black;
+      color: #000000;
       &:hover {
         color: var(--selectSide-color);
       }

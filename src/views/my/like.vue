@@ -30,7 +30,6 @@ export default {
       likeList(this.uid).then(item => {
         this.ids = item.ids;
         getSongs(this.ids).then(res => {
-          console.log(res);
           this.data = res.songs.map(r => {
             r.picUrl = r.al.picUrl;
             r.song = {

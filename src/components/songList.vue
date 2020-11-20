@@ -17,7 +17,16 @@
     <el-table-column>
       <template slot-scope="scope">
         <p class="name">{{ scope.row.name }}</p>
-        <p class="artists">
+        <p
+          class="artists"
+          @click.stop="
+            () => {
+              $router.push({
+                path: '/singerdetail/' + scope.row.song.artists[0].id
+              });
+            }
+          "
+        >
           {{ scope.row.song.artists.map(r => r.name).join("|") }}
         </p>
       </template>
@@ -37,7 +46,7 @@
               $emit('set', scope.row.id);
             }
           "
-          >{{set}}</el-button
+          >{{ set }}</el-button
         >
       </template>
     </el-table-column>
@@ -65,5 +74,6 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }
 </style>

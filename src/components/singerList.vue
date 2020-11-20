@@ -1,0 +1,92 @@
+<template>
+  <div class="singerList">
+    <el-table
+      :data="leftData"
+      :show-header="false"
+      @row-click="
+        row => {
+          $emit('onSinger', row.id);
+        }
+      "
+      class="singerBox"
+      :row-style="{height:'80px'}"
+    >
+      <el-table-column type="index" :index="1">
+      </el-table-column>
+      <el-table-column width="80">
+        <template slot-scope="scope">
+          <el-image :src="scope.row.picUrl + '?param=100y100'" />
+        </template>
+      </el-table-column>
+      <el-table-column>
+        <template slot-scope="scope">
+          <p class="name">{{ scope.row.name }}</p>
+        </template>
+      </el-table-column>
+      <el-table-column v-if="set" align="right">
+        <template slot-scope="scope">
+          <el-button
+            @click.stop="
+              () => {
+                $emit('set', scope.row.id);
+              }
+            "
+            >{{ set }}</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-table
+        v-if="rightData"
+      :data="rightData"
+      :show-header="false"
+      @row-click="
+        row => {
+          $emit('onSinger', row.id);
+        }
+      "
+      class="singerBox"
+      :row-style="{height:'80px'}"
+    >
+      <el-table-column type="index" :index="index">
+      </el-table-column>
+      <el-table-column width="80">
+        <template slot-scope="scope">
+          <el-image :src="scope.row.picUrl + '?param=100y100'" />
+        </template>
+      </el-table-column>
+      <el-table-column>
+        <template slot-scope="scope">
+          <p class="name">{{ scope.row.name }}</p>
+        </template>
+      </el-table-column>
+      <el-table-column v-if="set" align="right">
+        <template slot-scope="scope">
+          <el-button
+            @click.stop="
+              () => {
+                $emit('set', scope.row.id);
+              }
+            "
+            >{{ set }}</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "singerList",
+  props: ["leftData","rightData","index","set"]
+};
+</script>
+
+<style lang="less" scoped>
+.singerList {
+  display: flex;
+  width: 100%;
+
+}
+</style>

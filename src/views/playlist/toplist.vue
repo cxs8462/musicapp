@@ -13,8 +13,11 @@
 <script>
 import PlayItem from "@/components/playItem";
 import { getTopList } from "@/api/playlist";
+import { setPlayList } from "@/until/mixin";
+
 export default {
   name: "toplist",
+  mixins: [setPlayList],
   created() {
     this.getData();
   },
@@ -29,9 +32,6 @@ export default {
       getTopList().then(r => {
         this.data = r.list;
       });
-    },
-    onPlayItem(id) {
-      this.$router.push({ path: "playlistdetail/" + id });
     }
   }
 };

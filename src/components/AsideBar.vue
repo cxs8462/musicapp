@@ -66,6 +66,10 @@ export default {
           icon: "el-icon-upload2"
         },
         {
+          name: "全部歌手",
+          icon: "el-icon-user"
+        },
+        {
           name: "新歌速递",
           icon: "el-icon-sort-up"
         },

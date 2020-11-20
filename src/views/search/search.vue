@@ -13,9 +13,21 @@
     <div class="result">
       <el-tabs v-model="tabSelect" @tab-click="tabClick">
         <el-tab-pane label="歌曲" name="song">
-          <song-list :data="data.song" @onSong="onSong" />
+          <song-list
+            :data="data.song"
+            set="添加到我喜欢"
+            @set="add"
+            @onSong="onSong"
+          />
         </el-tab-pane>
-        <!--        <el-tab-pane label="歌手" name="singer"></el-tab-pane>-->
+        <el-tab-pane label="歌手" name="singer">
+          <singer-list
+            :left-data="data.singer"
+            set="收藏"
+            @set="scSinger"
+            @onSinger="onSinger"
+          />
+        </el-tab-pane>
         <el-tab-pane label="歌单" name="songList">
           <div class="playBox">
             <play-item
@@ -61,10 +73,13 @@ import { getSuggest, getSearch } from "@/api/search";
 import SongList from "@/components/songList";
 import PlayItem from "@/components/playItem";
 import MvItem from "@/components/MvItem";
+import { songSet, setMv, setPlayList, setSinger } from "@/until/mixin";
+import SingerList from "@/components/singerList";
 
 export default {
   name: "search",
-  components: { MvItem, PlayItem, SongList },
+  components: { SingerList, MvItem, PlayItem, SongList },
+  mixins: [songSet, setMv, setPlayList, setSinger],
   created() {
     this.search = this.$route.params.search;
     this.handleSelect();
@@ -87,7 +102,8 @@ export default {
       data: {
         song: [],
         songList: [],
-        mv: []
+        mv: [],
+        singer: []
       },
       suggest: {},
       tabSelect: "song",
@@ -134,23 +150,20 @@ export default {
           return r;
         });
         this.page.total = result.songCount;
-        console.log(this.data);
       });
     },
-    // getSinger(name) {
-    //   getSearch(name, 100, this.page.pageNub - 1).then(r => {
-    //     const { result } = r;
-    //     this.data.singer = result.artists;
-    //     this.page.total = result.artistsCount;
-    //     console.log(this.data);
-    //   });
-    // },
+    getSinger(name) {
+      getSearch(name, 100, this.page.pageNub - 1).then(r => {
+        const { result } = r;
+        this.data.singer = result.artists;
+        this.page.total = result.artistCount;
+      });
+    },
     getSongList(name) {
       getSearch(name, 1000, this.page.pageNub - 1).then(r => {
         const { result } = r;
         this.data.songList = result.playlists;
         this.page.total = result.playlistCount;
-        console.log(this.data);
       });
     },
     getMv(name) {
@@ -158,14 +171,14 @@ export default {
         const { result } = r;
         this.data.mv = result.mvs;
         this.page.total = result.mvCount;
-        console.log(this.data);
       });
     },
     tabClick({ name }) {
       this.data = {
         song: [],
         songList: [],
-        mv: []
+        mv: [],
+        singer:[]
       };
       this.page.pageNub = 1;
       this.getData(name);
@@ -181,21 +194,12 @@ export default {
         case "songList":
           this.getSongList(this.search);
           return;
-        // case "singer":
-        //   this.getSinger(this.search);
-        //   return;
+        case "singer":
+          this.getSinger(this.search);
+          return;
         default:
           return;
       }
-    },
-    onSong(item) {
-      this.$store.dispatch("player/getSong", item.id);
-    },
-    onPlayItem(id) {
-      this.$router.push({ path: "/playlistdetail/" + id });
-    },
-    onMV(id) {
-      this.$store.commit("mv/setMvId", id);
     }
   }
 };
@@ -222,16 +226,6 @@ export default {
     .playItem {
       width: 19%;
       margin-top: 20px;
-    }
-  }
-  .mvAll {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    .timvItem {
-      width: 22%;
-      margin-top: 20px;
-      align-self: flex-start;
     }
   }
 }
