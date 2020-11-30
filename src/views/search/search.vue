@@ -71,7 +71,7 @@
 <script>
 import { getSuggest, getSearch } from "@/api/search";
 import SongList from "@/components/songList";
-import PlayItem from "@/components/playItem";
+import PlayItem from "@/components/playList/playItem";
 import MvItem from "@/components/MvItem";
 import { songSet, setMv, setPlayList, setSinger } from "@/until/mixin";
 import SingerList from "@/components/singerList";

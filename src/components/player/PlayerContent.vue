@@ -59,9 +59,9 @@
 import Lyric from "@/until/lryParse";
 import BScroll from "@better-scroll/core";
 import { getPl } from "@/api/player";
-import CommentsList from "@/components/commentsList";
+import CommentsList from "@/components/comments/commentsList";
 import { fsPl } from "@/api/my";
-import ToComments from "@/components/toComments";
+import ToComments from "@/components/comments/toComments";
 import axios from "axios";
 import { songSet } from "@/until/mixin";
 

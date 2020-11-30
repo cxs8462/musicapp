@@ -44,3 +44,4 @@ export const fsPl = (type, id, content) =>
 
 //歌手收藏
 export const mySinger = () => req("/artist/sublist");
+

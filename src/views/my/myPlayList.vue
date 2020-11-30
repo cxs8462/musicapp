@@ -25,7 +25,7 @@
 
 <script>
 import { getMyplayList, scPlayList } from "@/api/my";
-import playItem from "@/components/playItem";
+import playItem from "@/components/playList/playItem";
 export default {
   name: "myPlayList",
   components: { playItem },

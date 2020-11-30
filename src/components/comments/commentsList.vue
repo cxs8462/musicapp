@@ -1,7 +1,14 @@
 <template>
   <div class="commentsList">
     <div class="itemBox" v-for="item in data" :key="item.time">
-      <div class="left">
+      <div
+        class="left"
+        @click="
+          () => {
+            userInfo(item.user.userId);
+          }
+        "
+      >
         <el-avatar :src="item.user.avatarUrl" :size="50" />
       </div>
       <div class="right">
@@ -22,6 +29,9 @@ export default {
   methods: {
     getTime(t) {
       return getCreateTime(t);
+    },
+    userInfo(id) {
+      this.$store.commit("user/setUserId", id);
     }
   }
 };

@@ -2,7 +2,7 @@
   <div class="userInfo">
     <el-dialog
       title="用户详情"
-      :visible="userId !== 0"
+      :visible="show"
       width="30%"
       :before-close="close"
       center
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getUserInfo } from "@/api/user";
+import { getUserInfo, gzUser, qxgzUser } from "@/api/user";
 import jscookie from "js-cookie";
 import format from "moment";
 export default {
@@ -67,7 +67,8 @@ export default {
   },
   data() {
     return {
-      userInfo: {}
+      userInfo: {},
+      show: false
     };
   },
   methods: {
@@ -75,10 +76,12 @@ export default {
       if (!id) return;
       getUserInfo(id).then(r => {
         this.userInfo = r.profile;
+        this.show = true;
       });
     },
     close() {
       this.$store.commit("user/setUserId", 0);
+      this.show = false;
     },
     qxdl() {
       jscookie.remove("MUSIC_U");
@@ -89,10 +92,27 @@ export default {
       return format(time).format("YYYY年MM月DD日");
     },
     gz() {
-      console.log(this.userId);
+      gzUser(this.userId).then(r => {
+        if (r.code === 200) {
+          this.$message.success(r.followTimeContent);
+          r.followContent
+            ? this.$notify.info({
+                title: r.followTimeContent,
+                message: r.followContent,
+                position: "top-right"
+              })
+            : "";
+        }
+        this.getData(this.userId);
+      });
     },
     qxgz() {
-      console.log(this.userId);
+      qxgzUser(this.userId).then(r => {
+        if(r.code === 200){
+          this.$message.success("取消关注成功！")
+        }
+        this.getData(this.userId);
+      });
     }
   }
 };

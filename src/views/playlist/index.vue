@@ -30,8 +30,8 @@
 
 <script>
 import { cat, playList, topPlayList } from "@/api/playlist";
-import PlayLIstHeader from "@/components/playLIstHeader";
-import playItem from "@/components/playItem";
+import PlayLIstHeader from "@/components/playList/playLIstHeader";
+import playItem from "@/components/playList/playItem";
 import UiTag from "@/components/UiTag";
 import { setPlayList } from "@/until/mixin";
 

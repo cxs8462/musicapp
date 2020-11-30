@@ -8,7 +8,7 @@
     "
   >
     <div class="bfBox">
-      <el-image :src="img + '?param=500y300'" />
+      <el-image class="img" :src="img + '?param=500y300'" />
       <span class="bf"><i class="el-icon-video-play"/></span>
       <p
         v-if="set"
@@ -67,6 +67,9 @@ export default {
     position: relative;
     overflow: hidden;
     height: 75%;
+    .img{
+      border-radius: 12px;
+    }
     .bf {
       position: absolute;
       font-size: 50px;

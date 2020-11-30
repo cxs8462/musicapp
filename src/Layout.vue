@@ -61,17 +61,17 @@
 </template>
 
 <script>
-import HeaderBar from "@/components/HeaderBar";
-import AsideBar from "@/components/AsideBar";
+import HeaderBar from "@/components/layout/HeaderBar";
+import AsideBar from "@/components/layout/AsideBar";
 import loginBox from "@/components/loginBox";
 import mvDetail from "@/components/mvDetail";
-import playerMini from "@/components/playerMini";
+import playerMini from "@/components/player/playerMini";
 import { mv } from "@/api/Mv";
 import { likeMv } from "@/api/my";
-import playerContent from "@/components/PlayerContent";
-import PlayerList from "@/components/playerList";
+import playerContent from "@/components/player/PlayerContent";
+import PlayerList from "@/components/playList/playerList";
 import Toast from "@/until/message";
-import UserInfo from "@/components/userInfo";
+import UserInfo from "@/components/user/userInfo";
 export default {
   components: {
     UserInfo,

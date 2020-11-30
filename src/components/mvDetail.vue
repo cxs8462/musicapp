@@ -78,10 +78,10 @@
 </template>
 
 <script>
-import CommentsList from "@/components/commentsList";
+import CommentsList from "@/components/comments/commentsList";
 import { plMv } from "@/api/Mv";
 import { fsPl } from "@/api/my";
-import ToComments from "@/components/toComments";
+import ToComments from "@/components/comments/toComments";
 export default {
   name: "mvDetail",
   props: ["mvShow", "mvData"],

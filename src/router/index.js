@@ -128,6 +128,33 @@ const routes = [
           keepAlive: false,
           needLogin: true
         }
+      },
+      {
+        path: "userSpace",
+        name: "动态",
+        component: () => import("@/views/user/userSpace"),
+        meta: {
+          keepAlive: false,
+          needLogin: true
+        }
+      },
+      {
+        path: "fanslist",
+        name: "关注列表",
+        component: () => import("@/views/user/fansList"),
+        meta: {
+          keepAlive: false,
+          needLogin: true
+        }
+      },
+      {
+        path: "createplaylist",
+        name: "我创建的歌单",
+        component: () => import("@/views/playlist/createPlayList"),
+        meta: {
+          keepAlive: false,
+          needLogin: true
+        }
       }
     ]
   }

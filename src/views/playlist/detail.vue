@@ -61,8 +61,8 @@ import { getSongDetail, plPlayList } from "@/api/playlist";
 import { getCreateTime } from "@/until/time";
 import { scPlayList } from "@/api/my";
 import SongList from "@/components/songList";
-import CommentsList from "@/components/commentsList";
-import ToComments from "@/components/toComments";
+import CommentsList from "@/components/comments/commentsList";
+import ToComments from "@/components/comments/toComments";
 import { fsPl } from "@/api/my";
 import { songSet } from "@/until/mixin";
 

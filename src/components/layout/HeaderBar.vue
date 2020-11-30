@@ -10,8 +10,9 @@
             :command="item"
             v-for="item in color"
             :key="item.color"
-            >{{ item.title }}</el-dropdown-item
           >
+            <p :style="{color:getColor(item.color)}">{{ item.title }}</p>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-button
@@ -62,7 +63,7 @@
 </template>
 
 <script>
-import styleChange from "@/until/styleChange";
+import styleChange,{SYTLE} from "@/until/styleChange";
 import fullScreen from "screenfull";
 import HotSearch from "@/components/hotSearch";
 import { getHot } from "@/api/search";
@@ -80,7 +81,8 @@ export default {
         { color: "red", title: "红色" },
         { color: "white", title: "白色" },
         { color: "blue", title: "蓝色" },
-        { color: "orange", title: "橘黄色" }
+        { color: "orange", title: "橘黄色" },
+        { color: "violet", title: "紫色" }
       ],
       isHotSearch: false,
       hotData: []
@@ -103,6 +105,9 @@ export default {
     changeStyle(item) {
       styleChange(item.color);
     },
+    getColor(color){
+      return SYTLE[color]['--header-color']
+    },
     async openHot() {
       if (this.search) return;
       if (this.hotData.length === 0) {
@@ -117,7 +122,7 @@ export default {
     },
     onSearch() {
       if (this.search) {
-        this.$router.push("/search/"+this.search)
+        this.$router.push("/search/" + this.search);
       }
     },
     searchChange(e) {

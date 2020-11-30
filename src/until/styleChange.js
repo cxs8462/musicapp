@@ -1,4 +1,4 @@
-const SYTLE = {
+export const SYTLE = {
   white: {
     "--sider-color": "#EBEEF5",
     "--header-color": "#909399",
@@ -8,14 +8,14 @@ const SYTLE = {
   },
   blue: {
     "--sider-color": "rgb(198,226,255)",
-    "--header-color": "#409EFF",
+    "--header-color": "#2c80c5",
     "--content-color": "rgb(236,245,255)",
     "--footer-color": "rgb(198,226,255)",
     "--selectSide-color": "rgb(181,210,238)"
   },
   red: {
     "--sider-color": "rgb(253,226,226)",
-    "--header-color": "#F56C6C",
+    "--header-color": "#e74c3c",
     "--content-color": "rgb(254,240,240)",
     "--footer-color": "rgb(253,226,226)",
     "--selectSide-color": "#f5848477"
@@ -26,6 +26,13 @@ const SYTLE = {
     "--content-color": "rgb(253,246,236)",
     "--footer-color": "rgb(250,236,216)",
     "--selectSide-color": "rgb(248,243,233)"
+  },
+  violet: {
+    "--sider-color": "#aba6df",
+    "--header-color": "#3f369c",
+    "--content-color": "#e4e2f4",
+    "--footer-color": "#aba6df",
+    "--selectSide-color": "#928cd6"
   }
 };
 

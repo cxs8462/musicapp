@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import PlayItem from "@/components/playItem";
+import PlayItem from "@/components/playList/playItem";
 import { getTopList } from "@/api/playlist";
 import { setPlayList } from "@/until/mixin";
 
