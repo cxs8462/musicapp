@@ -186,6 +186,9 @@ export default {
       border-radius: 10px;
       color: var(--header-color);
       cursor: pointer;
+      &:hover{
+        background-color: var(--selectSide-color);
+      }
       i {
         margin-right: 10px;
       }

@@ -51,8 +51,8 @@
 
 <script>
 import { banner, tjpersonalized, tjnewsong, tjmv } from "@/api/home";
-import cardItem from "@/components/cardItem";
-import songList from "@/components/songList";
+import cardItem from "@/components/comments/cardItem";
+import songList from "@/components/comments/songList";
 import MvItem from "@/components/MvItem";
 export default {
   created() {

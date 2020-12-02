@@ -45,7 +45,7 @@
 
 <script>
 import {fl} from "@/until/mixin";
-import UiTag from "@/components/UiTag";
+import UiTag from "@/components/comments/UiTag";
 import { mvAll } from "@/api/Mv";
 import MvItem from "@/components/MvItem";
 export default {

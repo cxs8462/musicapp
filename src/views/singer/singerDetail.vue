@@ -89,10 +89,10 @@
 
 <script>
 import { getSinger, getSingerHead } from "@/api/singer";
-import SongList from "@/components/songList";
+import SongList from "@/components/comments/songList";
 import { songSet, setMv, setAlbum, setSinger } from "@/until/mixin";
 import MvItem from "@/components/MvItem";
-import AlbumList from "@/components/albumList";
+import AlbumList from "@/components/comments/albumList";
 
 export default {
   name: "singer",

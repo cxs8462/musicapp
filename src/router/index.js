@@ -155,6 +155,42 @@ const routes = [
           keepAlive: false,
           needLogin: true
         }
+      },
+      {
+        path: "djindex",
+        name: "电台首页",
+        component: () => import("@/views/dj/index"),
+        meta: {
+          keepAlive: true,
+          needLogin: false
+        }
+      },
+      {
+        path: "djdetail/:id",
+        name: "电台详情",
+        component: () => import("@/views/dj/detail"),
+        meta: {
+          keepAlive: false,
+          needLogin: false
+        }
+      },
+      {
+        path: "mydjlist/:id",
+        name: "我的订阅",
+        component: () => import("@/views/dj/myDjList"),
+        meta: {
+          keepAlive: false,
+          needLogin: true
+        }
+      },
+      {
+        path: "hotdj",
+        name: "全部热门电台",
+        component: () => import("@/views/dj/hotDj"),
+        meta: {
+          keepAlive: false,
+          needLogin: false
+        }
       }
     ]
   }

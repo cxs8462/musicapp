@@ -92,32 +92,29 @@ export default {
         {
           name: "全部mv",
           icon: "el-icon-video-camera"
-        },
-        {
-          name: "我喜欢",
-          icon: "el-icon-apple"
-        },
-        {
-          name: "MV收藏",
-          icon: "el-icon-files"
-        },
-        {
-          name: "歌单收藏",
-          icon: "el-icon-s-management"
-        },
-        {
-          name: "歌手收藏",
-          icon: "el-icon-user-solid"
         }
       ],
       subMenu: [
         {
+          name: "电台",
+          icon: "el-icon-sunrise",
+          children: [
+            { name: "电台首页", icon: "el-icon-house" },
+            { name: "全部热门电台", icon: "el-icon-upload2" }
+          ]
+        },
+        {
           name: "用户",
           icon: "el-icon-s-custom",
           children: [
+            { name: "关注列表", icon: "el-icon-view" },
+            { name: "我喜欢", icon: "el-icon-apple" },
+            { name: "MV收藏", icon: "el-icon-files" },
+            { name: "歌单收藏", icon: "el-icon-s-management" },
+            { name: "歌手收藏", icon: "el-icon-user-solid" },
+            { name: "我的订阅", icon: "el-icon-finished" },
             { name: "我创建的歌单", icon: "el-icon-s-management" },
-            { name: "动态", icon: "el-icon-wind-power" },
-            { name: "关注列表", icon: "el-icon-view" }
+            { name: "动态", icon: "el-icon-wind-power" }
           ]
         }
       ]

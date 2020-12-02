@@ -6,7 +6,7 @@
 
 <script>
 import {likeList, getSongs, likeSong} from "@/api/my";
-import SongList from "@/components/songList";
+import SongList from "@/components/comments/songList";
 
 export default {
   name: "like",

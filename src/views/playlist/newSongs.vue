@@ -7,8 +7,8 @@
 
 <script>
 import { getNewSongs } from "@/api/playlist";
-import UiTag from "@/components/UiTag";
-import SongList from "@/components/songList";
+import UiTag from "@/components/comments/UiTag";
+import SongList from "@/components/comments/songList";
 import { songSet } from "@/until/mixin";
 
 export default {

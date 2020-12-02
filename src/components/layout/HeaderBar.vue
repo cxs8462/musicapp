@@ -65,7 +65,7 @@
 <script>
 import styleChange,{SYTLE} from "@/until/styleChange";
 import fullScreen from "screenfull";
-import HotSearch from "@/components/hotSearch";
+import HotSearch from "@/components/comments/hotSearch";
 import { getHot } from "@/api/search";
 
 export default {

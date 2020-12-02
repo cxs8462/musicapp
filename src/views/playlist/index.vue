@@ -32,7 +32,7 @@
 import { cat, playList, topPlayList } from "@/api/playlist";
 import PlayLIstHeader from "@/components/playList/playLIstHeader";
 import playItem from "@/components/playList/playItem";
-import UiTag from "@/components/UiTag";
+import UiTag from "@/components/comments/UiTag";
 import { setPlayList } from "@/until/mixin";
 
 export default {

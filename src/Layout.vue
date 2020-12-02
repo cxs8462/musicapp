@@ -64,7 +64,7 @@
 import HeaderBar from "@/components/layout/HeaderBar";
 import AsideBar from "@/components/layout/AsideBar";
 import loginBox from "@/components/loginBox";
-import mvDetail from "@/components/mvDetail";
+import mvDetail from "@/components/comments/mvDetail";
 import playerMini from "@/components/player/playerMini";
 import { mv } from "@/api/Mv";
 import { likeMv } from "@/api/my";
@@ -148,7 +148,7 @@ export default {
 * {
   transition: background-color 0.5s ease-in-out;
 }
-.el-dialog__wrapper{
+.el-dialog__wrapper,.el-message-box,.el-message-box__wrapper{
   transition-duration: 0.3s;
 }
 #layout {
