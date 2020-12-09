@@ -188,7 +188,7 @@ const routes = [
         name: "全部热门电台",
         component: () => import("@/views/dj/hotDj"),
         meta: {
-          keepAlive: false,
+          keepAlive: true,
           needLogin: false
         }
       }

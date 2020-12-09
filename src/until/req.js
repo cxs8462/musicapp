@@ -15,7 +15,7 @@ Axios.interceptors.response.use(
   res => {
     store.commit("setLoading", false);
     if (res.status === 200) {
-      if (res.data.code === 200 || res.data.message||res.data.body) {
+      if (res.data.code === 200 || res.data.message || res.data.body) {
         return res.data;
       }
       Message.error(res.data.message);
@@ -24,10 +24,12 @@ Axios.interceptors.response.use(
   },
   error => {
     store.commit("setLoading", false);
-    const res = error.response;
-    if (res.data.code === 301) {
+    const res = error.response.data;
+    if (res.code === 301) {
       Message.info("未登录状态");
+      return error;
     }
+    Message.info(res.message||res.msg);
     return error;
   }
 );

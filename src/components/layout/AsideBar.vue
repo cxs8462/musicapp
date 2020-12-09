@@ -17,6 +17,9 @@
         <div @click="zx" v-else class="avatarT">
           <el-avatar :size="50" :src="My.avatarUrl"></el-avatar>
           <p>{{ My.nickname }}</p>
+          <span @click.stop="setUser" class="set"
+            ><i class="el-icon-setting"
+          /></span>
         </div>
       </div>
       <el-menu :default-active="RouteName" class="el-menu-vertical-side">
@@ -55,15 +58,34 @@
         </el-submenu>
       </el-menu>
     </el-scrollbar>
+    <set-user :show.sync="setUserShow" :data="userInfo" @submit="submit" />
   </div>
 </template>
 
 <script>
+import SetUser from "@/components/user/setUser";
+import { getUserInfo, setUser } from "@/api/user";
 export default {
   name: "AsideBar",
+  components: { SetUser },
   methods: {
     zx() {
-      this.$store.commit("user/setUserId", this.$store.state.myConfig.userId);
+      this.$store.commit("user/setUserId", this.My.userId);
+    },
+    setUser() {
+      getUserInfo(this.My.userId).then(r => {
+        this.userInfo = r.profile;
+        this.setUserShow = true;
+      });
+    },
+    submit(s) {
+      setUser(s).then(r => {
+        if (r.code === 200) {
+          this.$message.success("修改成功！");
+          this.$store.dispatch("getState");
+          this.setUserShow = false;
+        }
+      });
     }
   },
   data() {
@@ -117,7 +139,9 @@ export default {
             { name: "动态", icon: "el-icon-wind-power" }
           ]
         }
-      ]
+      ],
+      setUserShow: false,
+      userInfo: {}
     };
   },
   computed: {
@@ -153,6 +177,17 @@ export default {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      position: relative;
+      .set {
+        position: absolute;
+        right: -10px;
+        top: 0;
+        cursor: pointer;
+        font-size: 20px;
+        &:hover {
+          color: var(--selectSide-color);
+        }
+      }
       p {
         font-size: 20px;
         white-space: nowrap;

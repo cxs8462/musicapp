@@ -17,5 +17,12 @@ limit : 返回数量 , 默认为 30
 offset : 偏移数量，用于分页 ,如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
 接口地址 : /user/follows
  */
-export const getFans = (uid,offset) => req("/user/follows", {uid, offset:offset*30, limit:30 });
-
+export const getFans = (uid, offset) =>
+  req("/user/follows", { uid, offset: offset * 30, limit: 30 });
+/*
+ gender: 性别 0:保密 1:男性 2:女性
+ birthday: 出生日期,时间戳 unix timestamp
+nickname: 用户昵称
+signature：用户签名
+ */
+export const setUser = detail => req("/user/update", detail);

@@ -73,7 +73,7 @@ export default {
     }
   }
   .itemRight{
-    width: 40%;
+    width: 60%;
     font-size: 20px;
     margin-left: 20px;
     display: flex;

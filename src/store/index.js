@@ -1,24 +1,24 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import mv from "@/store/modules/mv"
-import player from "@/store/modules/player"
-import user from "@/store/modules/user"
+import mv from "@/store/modules/mv";
+import player from "@/store/modules/player";
+import user from "@/store/modules/user";
 import { Login, getStatus } from "@/api/login";
 import { Message } from "element-ui";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isLoading:false,
+    isLoading: false,
     isFullScreen: false,
     loginBox: false,
     myConfig: {},
     isLogin: false,
-    loginBtn: false,
+    loginBtn: false
   },
   mutations: {
-    setLoading(state,is){
-      state.isLoading = is
+    setLoading(state, is) {
+      state.isLoading = is;
     },
     setFullScreen(state, is) {
       state.isFullScreen = is;
@@ -52,13 +52,15 @@ export default new Vuex.Store({
     async getState({ commit }) {
       const r = await getStatus();
       if (r.code === 200) {
-        Message.success("登录成功!");
+        Message.success("获取登录数据成功!");
         commit("setMyConfig", r.profile);
         commit("setIsLogin", true);
       }
     }
   },
   modules: {
-    mv,player,user
+    mv,
+    player,
+    user
   }
 });
