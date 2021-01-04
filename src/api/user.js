@@ -1,4 +1,5 @@
-import { req } from "@/until/req";
+import Axios, { req } from "@/until/req";
+import axios from "@/until/req";
 
 export const getUserInfo = uid => req("/user/detail", { uid });
 /*
@@ -26,3 +27,13 @@ nickname: 用户昵称
 signature：用户签名
  */
 export const setUser = detail => req("/user/update", detail);
+//头像上传
+export const upAvar = (size, data) =>
+  axios({
+    method: "post",
+    url: `/avatar/upload?imgSize=${size}&timestamp=${new Date().getTime()}`,
+    data,
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });

@@ -64,7 +64,7 @@
 
 <script>
 import SetUser from "@/components/user/setUser";
-import { getUserInfo, setUser } from "@/api/user";
+import { getUserInfo, setUser, upAvar } from "@/api/user";
 export default {
   name: "AsideBar",
   components: { SetUser },
@@ -78,14 +78,22 @@ export default {
         this.setUserShow = true;
       });
     },
-    submit(s) {
-      setUser(s).then(r => {
-        if (r.code === 200) {
-          this.$message.success("修改成功！");
-          this.$store.dispatch("getState");
+    async submit(s) {
+      const { gender, birthday, nickname, signature } = s;
+      const { upAva } = s;
+      const savaIni = await setUser({ gender, birthday, nickname, signature });
+      if (upAva.formData) {
+        const savaAva = await upAvar(upAva.imgSize, upAva.formData);
+        if (savaAva.code === 200) {
+          this.$message.success("修改用户头像成功！");
           this.setUserShow = false;
         }
-      });
+      }
+      if (savaIni.code === 200) {
+        this.$message.success("修改用户信息成功！");
+        this.setUserShow = false;
+      }
+      this.$store.dispatch("getState");
     }
   },
   data() {
