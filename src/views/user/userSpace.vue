@@ -30,6 +30,9 @@
         </div>
       </div>
     </el-dialog>
+    <div class="refresh" @click="refresh" :class="{setroute:isRefresh}">
+      <i class="el-icon-refresh"></i>
+    </div>
   </div>
 </template>
 
@@ -51,6 +54,7 @@ export default {
       begin: true,
       showComment: false,
       comments: [],
+      isRefresh:false,
       page: {
         pageSize: 20,
         pageNub: 1,
@@ -116,6 +120,9 @@ export default {
         case "转发歌单":
           this.onPlayItem(id);
           return;
+        case "分享电台节目":
+          this.$router.push("djdetail/" + id);
+          return;
         default:
           return;
       }
@@ -147,6 +154,15 @@ export default {
           this.comments = r.comments;
         });
       });
+    },
+    refresh(){
+      this.isRefresh = true
+      getAllDt().then(r => {
+        this.data = r.event;
+        this.lastTime = r.lasttime;
+        this.begin = false;
+        this.isRefresh = false
+      });
     }
   }
 };
@@ -156,5 +172,39 @@ export default {
 .userSpace {
   height: 84vh;
   overflow: auto;
+  .refresh{
+    position: fixed;
+    top: 10vh;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    background-color: var(--header-color);
+    cursor: pointer;
+    transition: 0.5s all;
+    opacity: 0.7;
+    &:hover{
+      background-color: var(--selectSide-color);
+      transform:rotate(-180deg);
+    }
+    border-radius: 50%;
+    i{
+      font-size: 30px;
+      color: white;
+    }
+  }
+  @keyframes route{
+    0%{
+      transform: rotate(0);
+    }
+    100%{
+      transform: rotate(-720deg);
+    }
+  }
+  .setroute{
+    animation: route 2s linear infinite;
+  }
 }
 </style>

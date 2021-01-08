@@ -11,7 +11,7 @@
     <el-table-column type="index" :index="index ? index : 1"> </el-table-column>
     <el-table-column width="80">
       <template slot-scope="scope">
-        <el-image :src="scope.row.picUrl + '?param=300y300'" />
+        <el-image :draggable="true" @dragstart="el=>{drag(el,scope.row)}" :src="scope.row.picUrl + '?param=300y300'" />
       </template>
     </el-table-column>
     <el-table-column>
@@ -56,7 +56,12 @@
 <script>
 export default {
   name: "songList",
-  props: ["data", "set", "index"]
+  props: ["data", "set", "index"],
+  methods:{
+    drag(el,data){
+      this.$store.commit('shareChat/setSong', {...data,type:'音乐'})
+    }
+  }
 };
 </script>
 

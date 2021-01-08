@@ -10,7 +10,7 @@
       <el-tag @click="$emit('pl', data)">评论</el-tag>
       <el-popover placement="left" title="转发" width="200" trigger="click">
         <div style="text-align: center;">
-          <el-input v-model="zfText" placeholder="您的感受"/>
+          <el-input v-model="zfText" placeholder="您的感受" />
           <el-button @click="zf" style="margin-top: 10px;">发送</el-button>
         </div>
         <el-tag slot="reference" style="margin-left: 20px">转发</el-tag>
@@ -19,7 +19,7 @@
     <div class="itemHead">
       <div class="headLeft">
         <el-avatar
-            :size="50"
+          :size="50"
           fit="contain"
           :src="data.avatar"
           @click.native="$store.commit('user/setUserId', data.userId)"
@@ -35,8 +35,28 @@
     </div>
     <div class="itemContent">
       {{ data.msg }}
+      <div v-if="data.program">
+        <div class="program">
+          <img :src="data.program.img" />
+          <div class="right">
+            <p>节目：{{ data.program.name }}</p>
+            <p>说明：{{ data.program.desc }}</p>
+            <p v-if="data.program.tag">
+              类型：<el-tag v-for="i in data.program.tag" :key="i">{{
+                i
+              }}</el-tag>
+            </p>
+          </div>
+        </div>
+      </div>
       <div
-        v-if="(data.tag === '分享单曲' || data.tag === '分享歌单'||/转发/.test(data.tag)) && data.name"
+        v-if="
+          (data.tag === '分享单曲' ||
+            data.tag === '分享歌单' ||
+            data.tag === '分享电台节目' ||
+            /转发/.test(data.tag)) &&
+            data.name
+        "
         class="dq"
         @click="$emit('onContent', { type: data.tag, id: data.id })"
       >
@@ -47,6 +67,14 @@
           <p class="name">{{ data.name }}</p>
           <p class="nickname">{{ data.nickname }}</p>
         </div>
+      </div>
+      <div class="picarr">
+        <el-image
+          :preview-src-list="data.picArr"
+          v-for="i in data.picArr"
+          :key="i"
+          :src="i"
+        />
       </div>
     </div>
   </div>
@@ -61,10 +89,10 @@ export default {
       zfText: ""
     };
   },
-  methods:{
-    zf(){
-      this.$emit('zf', { text:this.zfText, data:this.data })
-      this.zfText = ''
+  methods: {
+    zf() {
+      this.$emit("zf", { text: this.zfText, data: this.data });
+      this.zfText = "";
     }
   }
 };
@@ -123,6 +151,31 @@ export default {
           margin-top: 10px;
         }
       }
+    }
+  }
+  .picarr {
+    width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    .el-image {
+      width: 280px;
+      margin: 10px;
+    }
+  }
+  .program {
+    padding: 10px;
+    margin: 10px;
+    img {
+      width: 200px;
+      border-radius: 10px;
+    }
+    display: flex;
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      margin-left: 20px;
+      font-size: 20px;
     }
   }
 }

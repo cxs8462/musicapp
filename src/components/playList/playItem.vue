@@ -9,7 +9,7 @@
   >
     <div class="img">
       <p class="playCount">播放量 : {{ playCount }}万</p>
-      <el-image :src="data.coverImgUrl + '?param=300y300'" />
+      <el-image :draggable="true" @dragstart="el=>{drag(el,data)}" :src="data.coverImgUrl + '?param=300y300'" />
       <p class="bofang"><i class="el-icon-video-play"></i></p>
       <p
         class="set"
@@ -36,7 +36,12 @@ export default {
       return Math.floor(this.data.playCount / 10000);
     }
   },
-  props: ["data", "set"]
+  props: ["data", "set"],
+  methods:{
+    drag(el,data){
+      this.$store.commit('shareChat/setSong', {...data,type:'歌单'})
+    }
+  }
 };
 </script>
 

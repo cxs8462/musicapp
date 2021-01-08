@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column width="80">
         <template slot-scope="scope">
-          <el-image :src="scope.row.picUrl + '?param=100y100'" />
+          <img :draggable="true" @dragstart="el=>{drag(el,scope.row)}" :src="scope.row.picUrl + '?param=100y100'" />
         </template>
       </el-table-column>
       <el-table-column>
@@ -52,7 +52,7 @@
       </el-table-column>
       <el-table-column width="80">
         <template slot-scope="scope">
-          <el-image :src="scope.row.picUrl + '?param=100y100'" />
+          <img :draggable="true" @dragstart="el=>{drag(el,scope.row)}" :src="scope.row.picUrl + '?param=100y100'" />
         </template>
       </el-table-column>
       <el-table-column>
@@ -79,7 +79,12 @@
 <script>
 export default {
   name: "singerList",
-  props: ["leftData","rightData","index","set"]
+  props: ["leftData","rightData","index","set"],
+  methods:{
+    drag(el,data){
+      this.$store.commit('shareChat/setSong', {...data,type:'歌手'})
+    }
+  }
 };
 </script>
 

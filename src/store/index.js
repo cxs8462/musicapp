@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import mv from "@/store/modules/mv";
 import player from "@/store/modules/player";
 import user from "@/store/modules/user";
+import shareChat from "@/store/modules/shareChat";
 import { Login, getStatus } from "@/api/login";
 import { Message } from "element-ui";
 Vue.use(Vuex);
@@ -51,9 +52,9 @@ export default new Vuex.Store({
     },
     async getState({ commit }) {
       const r = await getStatus();
-      if (r.code === 200) {
+      if (r.data.code === 200) {
         Message.success("获取登录数据成功!");
-        commit("setMyConfig", r.profile);
+        commit("setMyConfig", r.data.profile);
         commit("setIsLogin", true);
       }
     }
@@ -61,6 +62,7 @@ export default new Vuex.Store({
   modules: {
     mv,
     player,
-    user
+    user,
+    shareChat
   }
 });

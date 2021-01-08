@@ -8,7 +8,7 @@
     "
   >
     <div class="bfBox">
-      <el-image class="img" :src="img + '?param=500y300'" />
+      <img :draggable="true" @dragstart="el=>{drag(el)}" class="img" :src="img + '?param=500y300'" />
       <span class="bf"><i class="el-icon-video-play"/></span>
       <p
         v-if="set"
@@ -37,6 +37,11 @@ export default {
   data(){
     return{
 
+    }
+  },
+  methods:{
+    drag(el){
+      this.$store.commit('shareChat/setSong', {img:this.img,id:this.id,name:this.name,type:'mv'})
     }
   }
 };

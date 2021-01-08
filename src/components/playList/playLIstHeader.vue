@@ -10,7 +10,7 @@
           }
         "
       >
-        <img :src="data.coverImgUrl + '?param=300y300'" />
+        <img :draggable="true" @dragstart="el=>{drag(el,data)}" :src="data.coverImgUrl + '?param=300y300'" />
       </div>
       <div class="right">
         <el-scrollbar style="height: 100%;">
@@ -26,7 +26,12 @@
 <script>
 export default {
   name: "playLIstHeader",
-  props: ["data"]
+  props: ["data"],
+  methods:{
+    drag(el,data){
+      this.$store.commit('shareChat/setSong', {...data,type:'歌单'})
+    }
+  }
 };
 </script>
 

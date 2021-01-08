@@ -7,7 +7,7 @@
       }
     "
   >
-    <el-image :src="img+'?param=300y300'" class="image" lazy/>
+    <el-image :draggable="true" @dragstart="el=>{drag(el)}" :src="img+'?param=300y300'" class="image" lazy/>
     <div style="padding: 14px;">
       <div>
         <span class="title">{{ title }}</span>
@@ -20,7 +20,12 @@
 <script>
 export default {
   name: "cardItem",
-  props: ["img", "title", "ms", "id"]
+  props: ["img", "title", "ms", "id"],
+  methods:{
+    drag(el){
+      this.$store.commit('shareChat/setSong', {id:this.id,name:this.title,img:this.img,type:'歌单'})
+    }
+  }
 };
 </script>
 

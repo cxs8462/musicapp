@@ -57,6 +57,8 @@
     />
     <!--    用户信息-->
     <user-info />
+    <!--    聊天室-->
+    <chat />
   </div>
 </template>
 
@@ -72,8 +74,10 @@ import playerContent from "@/components/player/PlayerContent";
 import PlayerList from "@/components/playList/playerList";
 import Toast from "@/until/message";
 import UserInfo from "@/components/user/userInfo";
+import Chat from "@/views/chat/chat";
 export default {
   components: {
+    Chat,
     UserInfo,
     PlayerList,
     playerContent,
@@ -148,8 +152,16 @@ export default {
 * {
   transition: background-color 0.5s ease-in-out;
 }
-.el-dialog__wrapper,.el-message-box,.el-message-box__wrapper{
+.el-dialog__wrapper,
+.el-message-box,
+.el-message-box__wrapper,
+.el-image-viewer__wrapper {
   transition-duration: 0.3s;
+}
+.el-image-viewer__canvas{
+  img{
+    width: auto;
+  }
 }
 #layout {
   height: 100vh;

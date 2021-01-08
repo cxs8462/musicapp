@@ -15,7 +15,7 @@ Axios.interceptors.response.use(
   res => {
     store.commit("setLoading", false);
     if (res.status === 200) {
-      if (res.data.code === 200 || res.data.message || res.data.body) {
+      if (res.data.code === 200 || res.data.message || res.data.body || res.data.data.code) {
         return res.data;
       }
       Message.error(res.data.message);

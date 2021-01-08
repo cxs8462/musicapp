@@ -26,7 +26,8 @@ const seltype = data => {
     dtid: data.id,
     time: moment(data.showTime).format("YYYY年MM月DD日 hh时mm分"),
     msg: json.msg || "",
-    threadId: data.info.threadId
+    threadId: data.info.threadId,
+    picArr: data.pics.length ? data.pics.map(r => r.pcSquareUrl) : []
   };
   switch (data.type) {
     case 18:
@@ -44,23 +45,31 @@ const seltype = data => {
       break;
     case 28:
     case 17:
-      if (!json.djRadio) break;
-      obj.name = json.djRadio["name"];
-      obj.id = json.djRadio["id"];
-      obj.pic = json.djRadio["picUrl"];
-      obj.nickname = json.djRadio["desc"];
+      console.log(json);
+      console.log(data);
+      if (!json.program) break;
+      obj.name = json.program.radio["name"];
+      obj.id = json.program.radio["id"];
+      obj.pic = json.program.radio["picUrl"];
+      obj.nickname = json.program.radio["desc"];
+      obj.program = {
+        name: json.program.name,
+        img: json.program.coverUrl,
+        desc: json.program.description,
+        tag: json.program.channels
+      };
       break;
     case 22:
       // eslint-disable-next-line no-case-declarations
       const s = JSON.parse(json.event.json);
       if (s.song) {
-        obj.tag = obj.tag+'单曲'
+        obj.tag = obj.tag + "单曲";
         obj.name = s.song["name"];
         obj.id = s.song["id"];
         obj.pic = s.song["img80x80"] || s.song.album["picUrl"];
         obj.nickname = s.song.artists[0]["name"];
       } else if (s.playlist) {
-        obj.tag = obj.tag+'歌单'
+        obj.tag = obj.tag + "歌单";
         obj.name = s.playlist["name"];
         obj.id = s.playlist["id"];
         obj.pic = s.playlist["coverImgUrl"];
@@ -92,7 +101,6 @@ export const getAllDt = (lasttime = -1) => {
   return new Promise(resolve => {
     req("/event", { pagesize: 20, lasttime }).then(r => {
       r.event = r.event.map(s => seltype(s)).filter(s => s.tag);
-      console.log(r.event);
       resolve(r);
     });
   });
