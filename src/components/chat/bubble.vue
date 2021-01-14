@@ -1,7 +1,7 @@
 <template>
   <div class="bubble">
     <div class="self" v-if="isSelf">
-      <avatar :name="user.name">
+      <avatar :name="user.name" :src="user.avatar">
         <template v-slot:time>
           <p>{{ time.time }}</p>
         </template>
@@ -20,7 +20,7 @@
       </avatar>
     </div>
     <div class="other" v-else>
-      <avatar :name="user.name">
+      <avatar :name="user.name" :src="user.avatar">
         <template v-slot:time>
           <p>{{ time.time }}</p>
         </template>

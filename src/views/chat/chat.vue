@@ -25,7 +25,8 @@
               <el-scrollbar style="height: 60vh;">
                 <avatar
                   v-for="item in personList"
-                  v-bind="item"
+                  :name="item.name"
+                  :src="item.avatar"
                   :key="item.id"
                   @click.native="
                     () => {
@@ -57,6 +58,8 @@
       @drop="drop"
       v-if="!show"
       @click="mainShow"
+      @dragleave="dragLeave"
+      ref="mini"
     >
       <el-tooltip
         effect="dark"
@@ -133,8 +136,18 @@ export default {
     },
     dragUp(el) {
       el.preventDefault();
+      const s = this.$refs.mini
+      s.classList.add('big')
+    },
+    dragLeave(el){
+      el.preventDefault();
+      const s = this.$refs.mini
+      s.classList.remove('big')
     },
     drop(el) {
+      el.preventDefault();
+      const s = this.$refs.mini
+      s.classList.remove('big')
       if (this.isLoagin) {
         if (!this.isConnect) this.toConnect();
         const obj = this.shareCreate(this.$store.state.shareChat.song);
@@ -192,6 +205,7 @@ export default {
     message(data) {
       data.isSelf = data.user.id === this.user.userId;
       this.messageList.push(data);
+      console.log(data)
       if (!this.show) this.toastNum++;
       this.$nextTick(() => {
         const chatbox = this.$refs.chatbox.$el.children[0];
@@ -262,6 +276,9 @@ export default {
     .el-input {
       margin: 0 20px;
     }
+  }
+  .big{
+    transform: scale(1.3);
   }
 }
 </style>
