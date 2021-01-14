@@ -52,7 +52,7 @@ export default new Vuex.Store({
     },
     async getState({ commit }) {
       const r = await getStatus();
-      if (r.data.code === 200) {
+      if (r.data.code === 200&&r.data.profile) {
         Message.success("获取登录数据成功!");
         commit("setMyConfig", r.data.profile);
         commit("setIsLogin", true);
