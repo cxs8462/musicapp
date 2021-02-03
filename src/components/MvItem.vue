@@ -8,7 +8,7 @@
     "
   >
     <div class="bfBox">
-      <img :draggable="true" @dragstart="el=>{drag(el)}" class="img" :src="img + '?param=500y300'" />
+      <img :draggable="true" @dragstart="el=>{drag(el)}" class="img" v-lazy="img + '?param=500y300'" />
       <span class="bf"><i class="el-icon-video-play"/></span>
       <p
         v-if="set"
@@ -25,7 +25,6 @@
     <span class="duration">{{ duration }}</span>
     <div class="foot">
       <p class="title">{{ name }}</p>
-      <p class="ms">{{ ms }}</p>
     </div>
   </div>
 </template>
@@ -51,6 +50,14 @@ export default {
 .MvItem {
   position: relative;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 4px 0 var(--header-color);
+  border-radius: 10px;
+  overflow: hidden;
+  &:hover{
+    box-shadow: 0 0 4px 3px var(--header-color);
+    transform: translateY(-10px);
+  }
   .duration {
     position: absolute;
     right: 5px;
@@ -59,22 +66,17 @@ export default {
     font-size: 10px;
   }
   .foot {
-    height: 25%;
+    padding: 10px;
   }
   .title {
-    font-size: 15px;
-  }
-  .ms {
     font-size: 20px;
-    color: darkgray;
+    text-align: center;
+    color: var(--header-color);
   }
   .bfBox {
     position: relative;
     overflow: hidden;
     height: 75%;
-    .img{
-      border-radius: 12px;
-    }
     .bf {
       position: absolute;
       font-size: 50px;

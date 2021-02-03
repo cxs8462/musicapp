@@ -6,8 +6,9 @@
         $emit('onCard', id);
       }
     "
+    class="cardItem"
   >
-    <el-image :draggable="true" @dragstart="el=>{drag(el)}" :src="img+'?param=300y300'" class="image" lazy/>
+    <img :draggable="true" @dragstart="el=>{drag(el)}" v-lazy="img+'?param=300y300'" class="image" lazy/>
     <div style="padding: 14px;">
       <div>
         <span class="title">{{ title }}</span>
@@ -29,12 +30,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .title {
   font-size: 20px;
 }
 .ms {
   font-size: 22px;
   color: darkgray;
+}
+.cardItem{
+  border-radius: 5px;
+  box-shadow: 0 0 4px 0px var(--header-color);
+  &:hover{
+    box-shadow: 0 0 4px 2px var(--header-color);
+  }
 }
 </style>

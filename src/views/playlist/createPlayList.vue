@@ -32,9 +32,8 @@
           selectPlayListId = '';
           songList = [];
           bjItemList.itemSelect = [];
-        "
-      >
-        <div v-if="add">
+        ">
+        <div v-if="add" v-loading="$store.state.isLoading">
           <p>
             从已收藏的歌单中选：<el-select
               v-model="selectPlayListId"
@@ -77,7 +76,11 @@
             </el-table>
           </div>
         </div>
-        <div style="height: 50vh;overflow-y: auto;" v-else>
+        <div
+          style="height: 50vh;overflow-y: auto;"
+          v-else
+          v-loading="$store.state.isLoading"
+        >
           <el-table
             :data="bjItemList.itemSongList"
             tooltip-effect="dark"
@@ -297,10 +300,6 @@ export default {
     },
     addSong(id) {
       addSongTo(this.itemData.id, id).then(r => {
-        if (r.body.code !== 200) {
-          this.$message.info(r.body.message);
-          return;
-        }
         this.getItemSong(this.selectPlayListId);
         this.$message.success("添加成功！");
       });
@@ -318,7 +317,7 @@ export default {
       });
     },
     upload(f) {
-      const that = this
+      const that = this;
       const formData = new FormData();
       const file = f.target.files[0];
       formData.append("imgFile", file);
@@ -329,7 +328,7 @@ export default {
           if (r.data.code === 200) {
             that.$message.success("上传成功！");
             that.itemData.coverImgUrl = r.data.url;
-            that.$refs.upload.value = ''
+            that.$refs.upload.value = "";
           }
         });
       };

@@ -12,7 +12,7 @@
         v-for="item in headerData"
         :key="item.id"
       >
-        <img :src="item.picUrl + '?param=300y300'" />
+        <img v-lazy="item.picUrl + '?param=300y300'" />
         <div class="context">
           <p class="type">{{ type }}</p>
           <p>节目：{{ item.name }}</p>

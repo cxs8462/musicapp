@@ -11,13 +11,13 @@
     <el-table-column type="index" :index="index ? index : 1"> </el-table-column>
     <el-table-column width="80">
       <template slot-scope="scope">
-        <el-image :draggable="true" @dragstart="el=>{drag(el,scope.row)}" :src="scope.row.picUrl + '?param=300y300'" />
+        <img :draggable="true" @dragstart="el=>{drag(el,scope.row)}" v-lazy="scope.row.picUrl + '?param=300y300'" />
       </template>
     </el-table-column>
     <el-table-column>
       <template slot-scope="scope">
         <p class="name">{{ scope.row.name }}</p>
-        <p
+        <span
           class="artists"
           @click.stop="
             () => {
@@ -28,7 +28,7 @@
           "
         >
           {{ scope.row.song.artists.map(r => r.name).join("|") }}
-        </p>
+        </span>
       </template>
     </el-table-column>
     <el-table-column>

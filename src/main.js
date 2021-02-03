@@ -7,6 +7,7 @@ import "element-ui/lib/theme-chalk/index.css";
 import "amfe-flexible";
 import SocketIO from "socket.io-client";
 import vueSccketIO from "vue-socket.io";
+import Lazy from "vue-lazyload";
 
 Vue.use(
   new vueSccketIO({
@@ -14,6 +15,11 @@ Vue.use(
     connection: SocketIO(process.env["VUE_APP_WS"])
   })
 );
+Vue.use(Lazy, {
+  preLoad: 1,
+  loading: require("@/assets/loading.gif"),
+  lazyComponent: true
+});
 
 Vue.config.productionTip = false;
 Vue.use(Ele);

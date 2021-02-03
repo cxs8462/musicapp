@@ -11,7 +11,7 @@
     <el-table-column type="index"> </el-table-column>
     <el-table-column width="80">
       <template slot-scope="scope">
-        <el-image :src="scope.row.coverUrl + '?param=300y300'" />
+        <img v-lazy="scope.row.coverUrl + '?param=300y300'" />
       </template>
     </el-table-column>
     <el-table-column prop="name" fit> </el-table-column>

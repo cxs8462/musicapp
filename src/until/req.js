@@ -14,13 +14,20 @@ Axios.interceptors.request.use(req => {
 Axios.interceptors.response.use(
   res => {
     store.commit("setLoading", false);
-    if (res.status === 200) {
-      if (res.data.code === 200 || res.data.message || res.data.body || res.data.data.code) {
-        return res.data;
-      }
-      Message.error(res.data.message);
+    const data = res.data;
+    if (data.code && data.code !== 200) {
+      Message.warning(data.message);
     }
-    return res;
+    if (data.code && data.code === 200 && data.message) {
+      Message.success(data.message);
+    }
+    const data2 = data.data;
+    if (data2) {
+      if (data2.code && data2.code !== 200) {
+        Message.warning(data2.message);
+      }
+    }
+    return data;
   },
   error => {
     store.commit("setLoading", false);
@@ -29,7 +36,7 @@ Axios.interceptors.response.use(
       Message.info("未登录状态");
       return error;
     }
-    Message.info(res.message||res.msg);
+    Message.info(res.message || res.msg);
     return error;
   }
 );

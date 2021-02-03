@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column width="80">
         <template slot-scope="scope">
-          <img :draggable="true" @dragstart="el=>{drag(el,scope.row)}" :src="scope.row.picUrl + '?param=100y100'" />
+          <img :draggable="true" @dragstart="el=>{drag(el,scope.row)}" v-lazy="scope.row.picUrl + '?param=100y100'" />
         </template>
       </el-table-column>
       <el-table-column>
@@ -52,7 +52,7 @@
       </el-table-column>
       <el-table-column width="80">
         <template slot-scope="scope">
-          <img :draggable="true" @dragstart="el=>{drag(el,scope.row)}" :src="scope.row.picUrl + '?param=100y100'" />
+          <img :draggable="true" @dragstart="el=>{drag(el,scope.row)}" v-lazy="scope.row.picUrl + '?param=100y100'" />
         </template>
       </el-table-column>
       <el-table-column>

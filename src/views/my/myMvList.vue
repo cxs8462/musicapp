@@ -12,33 +12,27 @@
       set="取消收藏"
       @set="del"
     />
+    <mv-detail :mvShow.sync="mvShow" :mvId.sync="mvId" />
   </div>
 </template>
 
 <script>
 import { getMyMvList, likeMv } from "@/api/my";
 import MvItem from "@/components/MvItem";
+import MvDetail from "@/components/comments/mvDetail";
 
 export default {
-  components: { MvItem },
+  components: {MvDetail, MvItem },
   name: "myPlayList",
   created() {
     this.getData();
   },
   data() {
     return {
-      data: []
+      data: [],
+      mvShow:false,
+      mvId:0
     };
-  },
-  computed:{
-    mvIsShow() {
-      return this.$store.state.mv.mvBox;
-    }
-  },
-  watch:{
-    mvIsShow(value){
-      if(!value) this.getData();
-    }
   },
   methods: {
     getData() {
@@ -47,13 +41,13 @@ export default {
       });
     },
     onMV(id) {
-      this.$store.commit("mv/setMvId", id);
+      this.mvId = id
+      this.mvShow = true
     },
     del(id) {
       likeMv(id, 0).then(r => {
         if (r.code === 200) {
           this.getData();
-          this.$message.success(r.message);
         }
       });
     }

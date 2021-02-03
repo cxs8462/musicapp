@@ -40,16 +40,18 @@
       >
       </el-pagination>
     </div>
+    <mv-detail :mvShow.sync="mvShow" :mvId.sync="mvId" />
   </div>
 </template>
 
 <script>
-import {fl} from "@/until/mixin";
+import { fl } from "@/until/mixin";
 import UiTag from "@/components/comments/UiTag";
 import { mvAll } from "@/api/Mv";
 import MvItem from "@/components/MvItem";
+import MvDetail from "@/components/comments/mvDetail";
 export default {
-  components: { UiTag, MvItem },
+  components: {MvDetail, UiTag, MvItem },
   created() {
     this.getData();
   },
@@ -81,7 +83,9 @@ export default {
         total: 0,
         pageSize: 48
       },
-      data: []
+      data: [],
+      mvShow: false,
+      mvId: 0
     };
   },
   methods: {
@@ -101,7 +105,8 @@ export default {
       });
     },
     onMV(id) {
-      this.$store.commit("mv/setMvId", id);
+      this.mvId = id;
+      this.mvShow = true;
     }
   }
 };
@@ -109,6 +114,5 @@ export default {
 
 <style lang="less" scoped>
 .mv {
-
 }
 </style>

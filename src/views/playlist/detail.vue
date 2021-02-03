@@ -2,13 +2,13 @@
   <div class="palyDetail">
     <div class="playDetailHead" v-if="Object.keys(data).length">
       <div class="left">
-        <el-image :src="data.coverImgUrl + '?param=400y400'" />
+        <img v-lazy="data.coverImgUrl + '?param=400y400'" />
       </div>
       <div class="right">
         <el-scrollbar style="height: 100%;">
           <div class="btn">
             <h3>{{ data.name }}</h3>
-            <el-button @click="sc">收藏</el-button>
+            <el-button @click="sc" :disabled="data.subscribed">{{data.subscribed?'已收藏':'收藏'}}</el-button>
           </div>
           <div class="creator" @click="$store.commit('user/setUserId',data.creator.userId)">
             <el-avatar :size="50" :src="data.creator.avatarUrl"></el-avatar>
@@ -118,13 +118,8 @@ export default {
       scPlayList(1, this.data.id).then(r => {
         if (r.code === 200) {
           this.$message.success("收藏成功！");
-          return;
         }
-        if (r.response) {
-          r.response.data.code === 501
-            ? this.$message.warning("歌单已收藏，请不要重复操作！")
-            : "";
-        }
+        this.getData(this.id);
       });
     },
     onSend(content) {
@@ -186,6 +181,8 @@ export default {
         margin-top: 10px;
         display: flex;
         cursor: pointer;
+        min-width: 300px;
+        max-width: 500px;
         p {
           margin-top: 0;
           font-size: 20px;

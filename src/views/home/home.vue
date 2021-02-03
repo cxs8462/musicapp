@@ -46,6 +46,7 @@
         @onMv="onMV"
       />
     </div>
+    <mv-detail :mvShow.sync="mvShow" :mvId.sync="mvId"/>
   </div>
 </template>
 
@@ -54,11 +55,13 @@ import { banner, tjpersonalized, tjnewsong, tjmv } from "@/api/home";
 import cardItem from "@/components/comments/cardItem";
 import songList from "@/components/comments/songList";
 import MvItem from "@/components/MvItem";
+import MvDetail from "@/components/comments/mvDetail";
 export default {
   created() {
     this.getData();
   },
   components: {
+    MvDetail,
     cardItem,
     songList,
     MvItem
@@ -68,7 +71,9 @@ export default {
       banner: [],
       personalized: [],
       newSong: [],
-      tjMv: []
+      tjMv: [],
+      mvShow:false,
+      mvId:0
     };
   },
   methods: {
@@ -90,7 +95,8 @@ export default {
       this.$router.push({ path: "playlistdetail/" + id });
     },
     onMV(id) {
-      this.$store.commit("mv/setMvId", id);
+      this.mvId = id
+      this.mvShow = true
     },
     onSong(row) {
       this.$store.dispatch("player/getSong",row.id)
@@ -121,9 +127,11 @@ export default {
   }
   .tjmv {
     display: flex;
-    justify-content: space-evenly;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
     .timvItem {
       width: 22%;
+      margin-left: 3%;
     }
   }
 }

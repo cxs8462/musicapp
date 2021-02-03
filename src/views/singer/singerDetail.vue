@@ -2,7 +2,7 @@
   <div class="singer">
     <div class="playDetailHead" v-if="Object.keys(head).length">
       <div class="left">
-        <el-image :src="head.picUrl + '?param=400y400'" />
+        <img v-lazy="head.picUrl + '?param=400y400'" />
       </div>
       <div class="right">
         <el-scrollbar style="height: 100%;">

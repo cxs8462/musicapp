@@ -9,7 +9,7 @@
   >
     <div class="img">
       <p class="playCount">播放量 : {{ playCount }}万</p>
-      <el-image :draggable="true" @dragstart="el=>{drag(el,data)}" :src="data.coverImgUrl + '?param=300y300'" />
+      <img :draggable="true" @dragstart="el=>{drag(el,data)}" v-lazy="data.coverImgUrl + '?param=300y300'" />
       <p class="bofang"><i class="el-icon-video-play"></i></p>
       <p
         class="set"
@@ -48,10 +48,19 @@ export default {
 <style lang="less" scoped>
 .playItem {
   overflow: hidden;
+  padding: 10px;
+  box-shadow: 0px 0px 3px 0px var(--header-color);
+  margin-bottom: 10px;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
+  border-radius: 5px;
+  overflow: hidden;
+  &:hover{
+    box-shadow: 0px 0px 3px 2px var(--header-color);
+  }
   .img {
     position: relative;
     cursor: pointer;
-    height: 300px;
     overflow: hidden;
     .playCount {
       position: absolute;

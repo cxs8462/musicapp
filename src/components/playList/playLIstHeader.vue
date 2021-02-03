@@ -1,6 +1,6 @@
 <template>
   <div class="playListHeader">
-    <img class="bg" :src="data.coverImgUrl" />
+    <img class="bg" v-lazy="data.coverImgUrl" />
     <div class="playcontent">
       <div
         class="left"
@@ -10,7 +10,7 @@
           }
         "
       >
-        <img :draggable="true" @dragstart="el=>{drag(el,data)}" :src="data.coverImgUrl + '?param=300y300'" />
+        <img :draggable="true" @dragstart="el=>{drag(el,data)}" v-lazy="data.coverImgUrl + '?param=300y300'" />
       </div>
       <div class="right">
         <el-scrollbar style="height: 100%;">

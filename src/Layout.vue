@@ -28,13 +28,6 @@
     </el-container>
     <!--    全局登录框-->
     <login-box />
-    全局mv播放
-    <mv-detail
-      @likeMv="likeMv"
-      :mvShow="mvIsShow"
-      :mvData="mvData"
-      @closeMvBox="closeMv"
-    />
     //播放器
     <audio
       @ended="
@@ -66,10 +59,7 @@
 import HeaderBar from "@/components/layout/HeaderBar";
 import AsideBar from "@/components/layout/AsideBar";
 import loginBox from "@/components/loginBox";
-import mvDetail from "@/components/comments/mvDetail";
 import playerMini from "@/components/player/playerMini";
-import { mv } from "@/api/Mv";
-import { likeMv } from "@/api/my";
 import playerContent from "@/components/player/PlayerContent";
 import PlayerList from "@/components/playList/playerList";
 import Toast from "@/until/message";
@@ -84,7 +74,6 @@ export default {
     HeaderBar,
     AsideBar,
     loginBox,
-    mvDetail,
     playerMini
   },
   mounted() {
@@ -92,55 +81,16 @@ export default {
     this.$store.commit("player/setPlayer", this.$refs.audioPlay);
     Toast(this);
   },
-  watch: {
-    mvId(value) {
-      if (value) this.getMvData(value);
-    }
-  },
   data() {
     return {
-      mvData: {
-        info: {},
-        count: {},
-        url: ""
-      }
     };
   },
   computed: {
-    mvIsShow() {
-      return this.$store.state.mv.mvBox;
-    },
-    mvId() {
-      return this.$store.state.mv.mvId;
-    },
     player() {
       return this.$store.state.player;
     }
   },
   methods: {
-    closeMv() {
-      this.$store.commit("mv/setMvBox", false);
-      this.$store.commit("mv/setMvId", 0);
-    },
-    async getMvData(value) {
-      const r = await mv(value);
-      this.mvData.info = r[0].data;
-      this.mvData.count = r[1];
-      this.mvData.url = r[2].data.url;
-      this.$store.commit("mv/setMvBox", true);
-    },
-    likeMv(id, t) {
-      if (!this.$store.state.isLogin) {
-        this.$message.info("请登入后操作！");
-        return;
-      }
-      likeMv(id, t).then(r => {
-        if (r.code === 200) {
-          this.getMvData(id);
-          this.$message.success(r.message);
-        }
-      });
-    },
     setSelect(item) {
       this.$store.commit("player/setSelectItem", item);
     }

@@ -3,15 +3,12 @@
     top="8vh"
     width="80vw"
     title="mv详情"
-    :visible="mvShow"
+    :visible.sync="mvShow"
     destroy-on-close
-    @close="
-      () => {
-        $emit('closeMvBox');
-      }
-    "
+    @close="close"
+    @open="open"
   >
-    <div class="mvDetail" v-if="mvShow">
+    <div class="mvDetail" v-if="mvShow" v-loading="loading">
       <el-scrollbar style="height: 100%;">
         <p class="title"><i class="el-icon-s-platform" />{{ info.name }}</p>
         <div class="video">
@@ -38,7 +35,7 @@
             class="cdItem"
             @click="
               () => {
-                $emit('likeMv', info.id, count.liked ? 0 : 1);
+                likeMv(info.id, count.liked ? 0 : 1);
               }
             "
           >
@@ -79,12 +76,19 @@
 
 <script>
 import CommentsList from "@/components/comments/commentsList";
-import { plMv } from "@/api/Mv";
-import { fsPl } from "@/api/my";
+import { mv, plMv } from "@/api/Mv";
+import { fsPl, likeMv } from "@/api/my";
 import ToComments from "@/components/comments/toComments";
 export default {
   name: "mvDetail",
-  props: ["mvShow", "mvData"],
+  props: {
+    mvShow: {
+      default: false
+    },
+    mvId: {
+      default: 0
+    }
+  },
   components: { CommentsList, ToComments },
   computed: {
     avatar() {
@@ -97,6 +101,7 @@ export default {
       info: {},
       url: "",
       count: {},
+      loading: false,
       page: {
         pageSize: 20,
         pageNub: 1,
@@ -106,42 +111,52 @@ export default {
     };
   },
   methods: {
-    setData() {
-      this.info = this.mvData.info;
-      this.url = this.mvData.url;
-      this.count = this.mvData.count;
+    async getMvData(id) {
+      this.loading = true;
+      const r = await mv(id);
+      this.info = r[0].data;
+      this.count = r[1];
+      this.url = r[2].data.url;
+      const s = await plMv(id, this.page.pageNub - 1);
+      this.page.total = s.total;
+      this.comments = s.comments;
+      this.loading = false;
     },
-    getComments(id) {
-      plMv(id, this.page.pageNub - 1).then(r => {
-        this.page.total = r.total;
-        this.comments = r.comments;
-      });
+    async onSend(content) {
+      this.loading = true;
+      await fsPl(1, this.info.id, content);
+      this.$message.success("发表成功！");
+      await this.getMvData(this.info.id);
     },
-    onSend(content) {
-      fsPl(1, this.info.id, content).then(r => {
-        if (r.code === 200) {
-          this.$message.success("发表成功！");
-          this.getComments(this.info.id);
-        }
+    close() {
+      this.$emit("update:mvId", 0);
+      this.$emit("update:mvShow", false);
+      this.page.pageNub = 1;
+    },
+    open() {
+      if (this.mvId) {
+        this.getMvData(this.mvId);
+      }
+    },
+    likeMv(id, t) {
+      if (!this.$store.state.isLogin) {
+        this.$message.info("请登入后操作！");
+        return;
+      }
+      likeMv(id, t).then(() => {
+        this.getMvData(id);
       });
     }
   },
   watch: {
-    mvShow(value) {
-      if (value) {
-        this.setData();
-        this.getComments(this.info.id);
-      }
-    },
-    "mvData.url": {
-      handler() {
-        this.setData();
-        this.page.pageNub = 1;
-      }
-    },
     "page.pageNub": {
       handler() {
-        this.getComments(this.info.id);
+        this.loading = true;
+        plMv(this.info.id, this.page.pageNub - 1).then(s => {
+          this.page.total = s.total;
+          this.comments = s.comments;
+          this.loading = false;
+        });
       }
     }
   }
@@ -186,7 +201,7 @@ export default {
       border-radius: 10px;
       color: var(--header-color);
       cursor: pointer;
-      &:hover{
+      &:hover {
         background-color: var(--selectSide-color);
       }
       i {

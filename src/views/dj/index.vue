@@ -2,7 +2,7 @@
   <div class="djIndex">
     <el-carousel :interval="4000" type="card">
       <el-carousel-item v-for="item in banner" :key="item.url">
-        <el-image :src="item.pic"></el-image>
+        <img v-lazy="item.pic" />
       </el-carousel-item>
     </el-carousel>
     <h3 class="title">分类推荐</h3>
@@ -73,7 +73,7 @@ export default {
       catelist: [],
       selectCate: 0,
       recommendType: [],
-      recommendPersonality: [],
+      recommendPersonality: []
     };
   },
   methods: {
@@ -131,8 +131,7 @@ export default {
     flex-wrap: wrap;
     margin-top: 20px;
   }
-  .dayGoods{
-
+  .dayGoods {
   }
 }
 </style>

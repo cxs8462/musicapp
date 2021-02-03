@@ -2,7 +2,7 @@
   <div class="djdetail">
     <div class="playDetailHead" v-if="Object.keys(data).length">
       <div class="left">
-        <el-image :src="data.picUrl + '?param=400y400'" />
+        <img v-lazy="data.picUrl + '?param=400y400'" />
       </div>
       <div class="right">
         <el-scrollbar style="height: 100%;">
@@ -60,7 +60,7 @@
               <p>创建时间：{{ createTime(programDetail.createTime) }}</p>
             </div>
             <div class="headerRight">
-              <img :src="programDetail.coverUrl + '?param=300y300'" />
+              <img v-lazy="programDetail.coverUrl + '?param=300y300'" />
               <el-button
                   style="width: 100%;"
                 @click="

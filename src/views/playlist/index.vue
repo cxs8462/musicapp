@@ -102,10 +102,9 @@ export default {
   .playBox {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
     .playItem {
       width: 19%;
-      margin-top: 20px;
+      margin-left: 1%;
     }
   }
 }

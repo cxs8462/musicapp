@@ -1,7 +1,7 @@
 <template>
   <div class="djItem" @click="$emit('onDj',data.id)">
     <div class="itemLeft">
-      <img :src="data.picUrl+'?param=300y300'"/>
+      <img v-lazy="data.picUrl+'?param=300y300'"/>
       <div class="cover">
         <p v-if="data.lastProgramName">又名：{{data.lastProgramName}}</p>
         <p>分类：{{data.category}}</p>
