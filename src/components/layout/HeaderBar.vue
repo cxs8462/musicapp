@@ -11,7 +11,7 @@
             v-for="item in color"
             :key="item.color"
           >
-            <p :style="{color:getColor(item.color)}">{{ item.title }}</p>
+            <p :style="{ color: getColor(item.color) }">{{ item.title }}</p>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import styleChange,{SYTLE} from "@/until/styleChange";
+import styleChange, { SYTLE } from "@/until/styleChange";
 import fullScreen from "screenfull";
 import HotSearch from "@/components/comments/hotSearch";
 import { getHot } from "@/api/search";
@@ -105,8 +105,8 @@ export default {
     changeStyle(item) {
       styleChange(item.color);
     },
-    getColor(color){
-      return SYTLE[color]['--header-color']
+    getColor(color) {
+      return SYTLE[color]["--header-color"];
     },
     async openHot() {
       if (this.search) return;

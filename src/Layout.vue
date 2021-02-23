@@ -52,6 +52,13 @@
     <user-info />
     <!--    聊天室-->
     <chat />
+    <!--    右键菜单-->
+    <context-menu>
+      <li @click="$router.forward()">前进</li>
+      <li @click="$router.back()">后退</li>
+    </context-menu>
+    <!--    登录功能-->
+    <user-menu />
   </div>
 </template>
 
@@ -65,8 +72,12 @@ import PlayerList from "@/components/playList/playerList";
 import Toast from "@/until/message";
 import UserInfo from "@/components/user/userInfo";
 import Chat from "@/views/chat/chat";
+import ContextMenu from "@/components/ContextMenu";
+import UserMenu from "@/components/UserMenu";
 export default {
   components: {
+    UserMenu,
+    ContextMenu,
     Chat,
     UserInfo,
     PlayerList,
@@ -82,8 +93,7 @@ export default {
     Toast(this);
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     player() {
@@ -108,8 +118,8 @@ export default {
 .el-image-viewer__wrapper {
   transition-duration: 0.3s;
 }
-.el-image-viewer__canvas{
-  img{
+.el-image-viewer__canvas {
+  img {
     width: auto;
   }
 }

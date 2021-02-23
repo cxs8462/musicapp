@@ -5,7 +5,7 @@ import Home from "@/views/home/home";
 import store from "@/store/index";
 Vue.use(VueRouter);
 
-const routes = [
+export const routes = [
   {
     path: "/",
     name: "Layout",
@@ -18,7 +18,8 @@ const routes = [
         component: Home,
         meta: {
           keepAlive: true,
-          needLogin: false
+          needLogin: false,
+          icon: "el-icon-house"
         }
       },
       {
@@ -27,7 +28,8 @@ const routes = [
         component: () => import("@/views/playlist/index"),
         meta: {
           keepAlive: true,
-          needLogin: false
+          needLogin: false,
+          icon: "el-icon-notebook-2"
         }
       },
       {
@@ -36,7 +38,8 @@ const routes = [
         component: () => import("@/views/playlist/newSongs"),
         meta: {
           keepAlive: true,
-          needLogin: false
+          needLogin: false,
+          icon: "el-icon-sort-up"
         }
       },
       {
@@ -45,7 +48,8 @@ const routes = [
         component: () => import("@/views/mv/mvall"),
         meta: {
           keepAlive: true,
-          needLogin: false
+          needLogin: false,
+          icon: "el-icon-video-camera"
         }
       },
       {
@@ -54,7 +58,8 @@ const routes = [
         component: () => import("@/views/playlist/toplist"),
         meta: {
           keepAlive: true,
-          needLogin: false
+          needLogin: false,
+          icon: "el-icon-upload2"
         }
       },
       {
@@ -63,7 +68,10 @@ const routes = [
         component: () => import("@/views/my/like"),
         meta: {
           keepAlive: false,
-          needLogin: true
+          needLogin: true,
+          isUser: true,
+          icon: "el-icon-apple",
+          color: "linear-gradient(to bottom, #091E3A, #2F80ED, #2D9EE0)"
         }
       },
       {
@@ -72,7 +80,10 @@ const routes = [
         component: () => import("@/views/my/myMvList"),
         meta: {
           keepAlive: false,
-          needLogin: true
+          needLogin: true,
+          isUser: true,
+          icon: "el-icon-files",
+          color: "linear-gradient(to bottom, #9400D3, #4B0082)"
         }
       },
       {
@@ -81,7 +92,10 @@ const routes = [
         component: () => import("@/views/my/myPlayList"),
         meta: {
           keepAlive: false,
-          needLogin: true
+          needLogin: true,
+          isUser: true,
+          icon: "el-icon-s-management",
+          color: "linear-gradient(to bottom, #c84e89, #F15F79)"
         }
       },
       {
@@ -117,7 +131,8 @@ const routes = [
         component: () => import("@/views/singer/allSinger"),
         meta: {
           keepAlive: true,
-          needLogin: false
+          needLogin: false,
+          icon: "el-icon-user"
         }
       },
       {
@@ -126,7 +141,10 @@ const routes = [
         component: () => import("@/views/my/mySinger"),
         meta: {
           keepAlive: false,
-          needLogin: true
+          needLogin: true,
+          isUser: true,
+          icon: "el-icon-user-solid",
+          color: "linear-gradient(to bottom, #00F5A0, #00D9F5)"
         }
       },
       {
@@ -135,7 +153,10 @@ const routes = [
         component: () => import("@/views/user/userSpace"),
         meta: {
           keepAlive: false,
-          needLogin: true
+          needLogin: true,
+          isUser: true,
+          icon: "el-icon-wind-power",
+          color: "linear-gradient(to bottom, #72C6EF, #004E8F)"
         }
       },
       {
@@ -144,7 +165,10 @@ const routes = [
         component: () => import("@/views/user/fansList"),
         meta: {
           keepAlive: false,
-          needLogin: true
+          needLogin: true,
+          isUser: true,
+          icon: "el-icon-view",
+          color: "linear-gradient(to bottom, #bf5ae0, #a811da)"
         }
       },
       {
@@ -153,7 +177,10 @@ const routes = [
         component: () => import("@/views/playlist/createPlayList"),
         meta: {
           keepAlive: false,
-          needLogin: true
+          needLogin: true,
+          isUser: true,
+          icon: "el-icon-s-management",
+          color: "linear-gradient(to bottom, #acb6e5, #86fde8)"
         }
       },
       {
@@ -162,7 +189,8 @@ const routes = [
         component: () => import("@/views/dj/index"),
         meta: {
           keepAlive: true,
-          needLogin: false
+          needLogin: false,
+          icon: "el-icon-house"
         }
       },
       {
@@ -180,7 +208,10 @@ const routes = [
         component: () => import("@/views/dj/myDjList"),
         meta: {
           keepAlive: false,
-          needLogin: true
+          needLogin: true,
+          isUser: true,
+          icon: "el-icon-finished",
+          color: "linear-gradient(to bottom, #9796f0, #fbc7d4)"
         }
       },
       {
@@ -189,7 +220,8 @@ const routes = [
         component: () => import("@/views/dj/hotDj"),
         meta: {
           keepAlive: true,
-          needLogin: false
+          needLogin: false,
+          icon: "el-icon-upload2"
         }
       }
     ]

@@ -8,7 +8,8 @@ import "amfe-flexible";
 import SocketIO from "socket.io-client";
 import vueSccketIO from "vue-socket.io";
 import Lazy from "vue-lazyload";
-
+import anmition from 'animate.css'
+Vue.use(anmition)
 Vue.use(
   new vueSccketIO({
     debug: true,
