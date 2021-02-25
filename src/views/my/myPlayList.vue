@@ -84,6 +84,7 @@ export default {
 
 <style lang="less" scoped>
 .myPlayList {
+  width: 100%;
   .playBox {
     display: flex;
     flex-wrap: wrap;

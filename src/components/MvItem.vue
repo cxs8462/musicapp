@@ -51,7 +51,7 @@ export default {
   position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 4px 0 var(--header-color);
+  box-shadow: 2px 2px 3px 2px var(--header-color);
   border-radius: 10px;
   overflow: hidden;
   &:hover{
@@ -82,12 +82,18 @@ export default {
       font-size: 50px;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(5);
+      opacity: 0;
       color: brown;
+      transition: all 0.2s ease-in-out;
     }
     &:hover {
       .set {
         transform: translateY(0);
+      }
+      .bf {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
       }
     }
     .set {

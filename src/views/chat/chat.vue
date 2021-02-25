@@ -179,14 +179,14 @@ export default {
       switch (data.type) {
         case "歌单":
           this.show = false;
-          this.$router.push({ path: "playlistdetail/" + data.id });
+          this.$router.push({ path: "/playlistdetail/" + data.id });
           break;
         case "音乐":
           this.$store.dispatch("player/getSong", data.id);
           break;
         case "歌手":
           this.show = false;
-          this.$router.push({ path: "singerdetail/" + data.id });
+          this.$router.push({ path: "/singerdetail/" + data.id });
           break;
         case "mv":
           this.$store.commit("mv/setMvId", data.id);
