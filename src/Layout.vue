@@ -15,10 +15,14 @@
           element-loading-customClass="loading"
         >
           <el-scrollbar style="height: 100%;">
-            <keep-alive>
-              <router-view v-if="$route.meta.keepAlive"></router-view>
-            </keep-alive>
-            <router-view v-if="!$route.meta.keepAlive"></router-view>
+            <transition name="router">
+              <keep-alive>
+                <router-view v-if="$route.meta.keepAlive"></router-view>
+              </keep-alive>
+            </transition>
+            <transition name="router">
+              <router-view v-if="!$route.meta.keepAlive"></router-view>
+            </transition>
           </el-scrollbar>
         </el-main>
       </el-container>
@@ -237,4 +241,22 @@ p {
     align-self: flex-start;
   }
 }
+
+.router-enter,.router-enter-to,.router-leave-to{
+  transition: all 0.6s ease-in-out!important;
+  position: absolute;
+}
+.router-enter{
+  transform: translateX(-100%)!important;
+}
+.router-enter-to{
+  transform: translateX(0)!important;
+}
+.router-leave-to{
+  transform: translateX(100%)!important;
+}
+//.router-leave{
+//  opacity: 0;
+//  transform: translateX(0)!important;
+//}
 </style>

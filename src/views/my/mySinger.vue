@@ -41,6 +41,7 @@ export default {
 
 <style lang="less">
 .mySinger {
+  width: 100%;
   .count {
     font-size: 30px;
     color: var(--header-color);

@@ -1,93 +1,67 @@
 <template>
   <div class="loginBox">
-    <el-dialog
-      title="登入"
-      :visible="$store.state.loginBox"
-      width="40%"
-      :show-close="true"
-      @close="close"
-    >
-      <el-tabs v-model="activeName" type="card" stretch>
-        <el-tab-pane style="padding: 20px" label="邮箱" name="email">
-          <el-form
-            ref="email"
-            :model="email"
-            :rules="emailRules"
-            size="medium"
-            label-width="100px"
-          >
-            <el-form-item label="邮箱" prop="username">
-              <el-input
-                v-model="email.username"
-                placeholder="请输入邮箱"
-                clearable
-                prefix-icon="el-icon-message"
-                :style="{ width: '100%' }"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="password">
-              <el-input
-                v-model="email.password"
-                placeholder="请输入密码"
-                clearable
-                prefix-icon="el-icon-key"
-                show-password
-                :style="{ width: '100%' }"
-              ></el-input>
-            </el-form-item>
-            <el-form-item size="large">
-              <el-button type="primary" @click="emailSubmit">提交</el-button>
-              <el-button @click="emailReset">重置</el-button>
-            </el-form-item>
-          </el-form>
-        </el-tab-pane>
-        <el-tab-pane label="手机号" name="phone">
-          <el-form
-            ref="phone"
-            :model="phone"
-            :rules="phoneRules"
-            size="medium"
-            label-width="100px"
-            style="padding: 20px"
-          >
-            <el-form-item label="手机号" prop="username">
-              <el-input
-                v-model="phone.username"
-                placeholder="请输入手机号"
-                :maxlength="11"
-                show-word-limit
-                clearable
-                prefix-icon="el-icon-mobile"
-                :style="{ width: '100%' }"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="password">
-              <el-input
+    <div class="bg" @click="close" v-show="$store.state.loginBox"></div>
+    <transition name="login">
+      <div class="userBox" v-show="$store.state.loginBox">
+        <img :src="loginBg" class="loginBg" />
+        <h1>{{ loginType }}登录</h1>
+        <div class="phone" v-if="activeName === 'phone'">
+          <p class="loginInput">
+            <label>
+              <input placeholder="手机号" v-model="phone.username" />
+            </label>
+          </p>
+          <p class="loginInput">
+            <label>
+              <input
+                placeholder="密码"
+                type="password"
                 v-model="phone.password"
-                placeholder="请输入密码"
-                clearable
-                prefix-icon="el-icon-key"
-                show-password
-                :style="{ width: '100%' }"
-              ></el-input>
-            </el-form-item>
-            <el-form-item size="large">
-              <el-button type="primary" @click="phoneSubmit">提交</el-button>
-              <el-button @click="phoneReset">重置</el-button>
-            </el-form-item>
-          </el-form>
-        </el-tab-pane>
-      </el-tabs>
-    </el-dialog>
+              />
+            </label>
+          </p>
+        </div>
+        <div class="email" v-else>
+          <p class="loginInput">
+            <label>
+              <input placeholder="邮箱" v-model="email.username" />
+            </label>
+          </p>
+          <p class="loginInput">
+            <label>
+              <input placeholder="密码" v-model="email.password" />
+            </label>
+          </p>
+        </div>
+        <p class="loginInput">
+          <button class="loginBtn" @click="submit">登录</button>
+        </p>
+        <p class="loginInput">
+          <a href="javascript:" @click="changeLoginType" class="loginChange"
+            >切换{{ changeType }}登录</a
+          >
+        </p>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import loginBg from "@/assets/loginBg.png";
 export default {
   name: "loginBox",
+  computed: {
+    changeType() {
+      return this.activeName === "phone" ? "邮箱" : "手机";
+    },
+    loginType() {
+      return this.activeName === "phone" ? "手机" : "邮箱";
+    }
+  },
   data() {
     return {
-      activeName: "email",
+      activeName: "phone",
+      loginBg,
       email: {
         username: "",
         password: ""
@@ -95,72 +69,45 @@ export default {
       phone: {
         username: "",
         password: ""
-      },
-      phoneRules: {
-        username: [
-          {
-            required: true,
-            message: "请输入手机号",
-            trigger: "blur"
-          },
-          {
-            pattern: /^1(3|4|5|7|8|9)\d{9}$/,
-            message: "手机号格式错误",
-            trigger: "blur"
-          }
-        ],
-        password: [
-          {
-            required: true,
-            message: "请输入密码",
-            trigger: "blur"
-          }
-        ]
-      },
-      emailRules: {
-        username: [
-          {
-            required: true,
-            message: "请输入邮箱",
-            trigger: "blur"
-          }
-        ],
-        password: [
-          {
-            required: true,
-            message: "请输入密码",
-            trigger: "blur"
-          }
-        ]
       }
     };
   },
   methods: {
     submit() {
       const obj = this.activeName === "phone" ? this.phone : this.email;
+      if (!this.yz(obj, this.activeName)) return;
       this.$store.commit("setLoginBtn", true);
       this.$store.dispatch("login", { type: this.activeName, data: obj });
     },
-    emailSubmit() {
-      this.$refs["email"].validate(valid => {
-        if (!valid) return;
-        this.submit();
-      });
+    close() {
+      this.$store.commit("setLoginBox", false);
     },
-    emailReset() {
-      this.$refs["email"].resetFields();
+    changeLoginType() {
+      if (this.activeName === "phone") {
+        this.activeName = "email";
+      } else {
+        this.activeName = "phone";
+      }
     },
-    phoneSubmit() {
-      this.$refs["phone"].validate(valid => {
-        if (!valid) return;
-        this.submit();
-      });
-    },
-    phoneReset() {
-      this.$refs["phone"].resetFields();
-    },
-    close(){
-      this.$store.commit('setLoginBox',false);
+    yz(data, type) {
+      if (type === "phone") {
+        const phone = /^1(3|4|5|7|8|9)\d{9}$/;
+        if (!phone.test(data.username)) {
+          this.$message.warning("请输入正确的手机号！");
+          return false;
+        }
+      } else {
+        const email = /^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if (!email.test(data.username)) {
+          this.$message.warning("请输入正确的邮箱！");
+          return false;
+        }
+      }
+      if (!data.password) {
+        this.$message.warning("请输入密码！");
+        return false;
+      }
+      return true;
     }
   }
 };
@@ -168,5 +115,101 @@ export default {
 
 <style lang="less" scoped>
 .loginBox {
+  .bg {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #00000088;
+    z-index: 1000;
+  }
+  .userBox {
+    position: fixed;
+    width: 30vw;
+    height: 40vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    overflow: hidden;
+    border-radius: 40px;
+    box-shadow: 0px 0px 4px 10px #ffffff66;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      font-size: 40px;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .loginBg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(10px);
+      z-index: -1;
+    }
+    .loginInput {
+      padding: 10px;
+      width: 20vw;
+      text-align: center;
+      input {
+        transition: all 0.3s ease-in-out;
+        width: 200px;
+        height: 50px;
+        border: 1px solid white;
+        border-radius: 10px;
+        background-color: #f39c1288;
+        color: seashell;
+        text-align: center;
+        &:focus {
+          width: 300px;
+          background-color: #f39c12;
+          font-size: 20px;
+          color: white;
+          outline: none;
+          box-shadow: 0px 0px 4px 3px white;
+        }
+      }
+      .loginBtn {
+        width: 140px;
+        height: 60px;
+        border-radius: 10px;
+        border: 0;
+        color: white;
+        background-color: #e67e22;
+        box-shadow: 0px 0px 3px 3px #ffffff66;
+        cursor: pointer;
+        outline: none;
+        &:hover {
+          background-color: #f39c12;
+        }
+      }
+      .loginChange {
+        color: #ffffff;
+      }
+    }
+  }
+}
+.login-enter,
+.login-enter-to,
+.login-leave-to {
+  transition: all 0.3s ease-in-out;
+}
+.login-enter {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.1) !important;
+}
+.login-enter-to {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1) !important;
+}
+.login-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.1) !important;
 }
 </style>

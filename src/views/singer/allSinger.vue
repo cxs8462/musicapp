@@ -121,6 +121,7 @@ export default {
 
 <style lang="less">
 .allSinger {
+  width: 100%;
   .tag {
     font-size: 20px;
   }

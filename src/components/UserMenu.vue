@@ -3,26 +3,24 @@
     <div class="userBtn" v-show="!menuShow" @click="changeMenu">
       <i class="el-icon-s-custom"></i>
     </div>
-    <div class="userMenu" v-show="menuShow">
-      <div class="bg" @click="leave"></div>
-      <div
-        class="iconBox animate__animated"
-        ref="iconBox"
-        :class="{ animate__zoomOut: change }"
-      >
-        <div
-          v-for="item in menuInfo"
-          class="iconItem animate__animated"
-          :class="{ animate__flipInX: menuShow }"
-          :style="{ background: item.meta.color }"
-          :key="item.name"
-          @click="()=>toGo(item.name)"
-        >
-          <el-tooltip effect="dark" :content="item.name" placement="left">
-            <i :class="item.meta.icon"></i>
-          </el-tooltip>
+    <div class="userMenu">
+      <div class="bg" @click="leave" v-show="menuShow"></div>
+      <transition name="iconBoxTra">
+        <div class="iconBox" ref="iconBox" v-show="menuShow">
+          <div
+            v-for="item in menuInfo"
+            class="iconItem animate__animated"
+            :class="{ animate__flipInX: menuShow }"
+            :style="{ background: item.meta.color }"
+            :key="item.name"
+            @click="() => toGo(item.name)"
+          >
+            <el-tooltip effect="dark" :content="item.name" placement="left">
+              <i :class="item.meta.icon"></i>
+            </el-tooltip>
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -32,15 +30,14 @@ import { routes } from "@/router/index";
 export default {
   name: "UserMenu",
   mounted() {
-    console.log(this.$refs.iconBox);
-    this.$refs.iconBox.addEventListener("animationend", e => {
-      if (e.target === this.$refs.iconBox) this.menuShow = false;
-    });
+    // console.log(this.$refs.iconBox);
+    // this.$refs.iconBox.addEventListener("animationend", e => {
+    //   if (e.target === this.$refs.iconBox) this.menuShow = false;
+    // });
   },
   data() {
     return {
-      menuShow: false,
-      change: false
+      menuShow: false
     };
   },
   computed: {
@@ -51,14 +48,13 @@ export default {
   methods: {
     changeMenu() {
       this.menuShow = true;
-      this.change = false;
     },
     leave() {
-      this.change = true;
+      this.menuShow = false;
     },
-    toGo(name){
-      this.$router.push({name})
-      this.change = true;
+    toGo(name) {
+      this.$router.push({ name });
+      this.menuShow = false;
     }
   }
 };
@@ -93,9 +89,11 @@ export default {
       height: 100vh;
       top: 0;
       left: 0;
+      background-color: #7f8c8d;
+      opacity: 0.5;
     }
     .iconBox {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       width: 800px;
@@ -106,7 +104,6 @@ export default {
       justify-content: space-evenly;
       align-items: center;
       flex-wrap: wrap;
-      overflow: hidden;
     }
     .iconItem {
       width: 120px;
@@ -123,5 +120,19 @@ export default {
       }
     }
   }
+}
+.iconBoxTra-enter,
+.iconBoxTra-enter-to,
+.iconBoxTra-leave-to {
+  transition: all 0.3s ease-in-out;
+}
+.iconBoxTra-enter {
+  transform: translate(-50%, -50%) scale(0.1) !important;
+}
+.iconBoxTra-enter-to {
+  transform: translate(-50%, -50%) scale(1) !important;
+}
+.iconBoxTra-leave-to {
+  transform: translate(-50%, -50%) scale(0.1) !important;
 }
 </style>

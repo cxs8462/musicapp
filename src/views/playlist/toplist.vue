@@ -39,6 +39,7 @@ export default {
 
 <style lang="less">
 .toplist {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   .topListItem {
