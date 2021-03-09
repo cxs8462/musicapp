@@ -99,7 +99,8 @@ export default {
 
 <style lang="less">
 .playlist {
-  width: 100%;
+  width: 95%;
+  padding: 10px;
   .playBox {
     display: flex;
     flex-wrap: wrap;

@@ -49,8 +49,8 @@ export default {
 .playItem {
   overflow: hidden;
   padding: 10px;
-  box-shadow: 2px 2px 2px 2px var(--header-color);
-  margin-bottom: 10px;
+  box-shadow: 0px 0px 2px 1px var(--header-color);
+  margin-bottom: 20px;
   transition: all 0.3s ease-in-out;
   box-sizing: border-box;
   border-radius: 5px;

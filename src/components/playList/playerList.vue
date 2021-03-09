@@ -73,15 +73,16 @@ export default {
 .playerList {
   position: fixed;
   padding: 10px;
-  bottom: -100vh;
-  right: 0;
-  width: 30vw;
-  height: 90vh;
-  background-color: var(--sider-color);
+  bottom: 8vh;
+  right: -420px;
+  width: 400px;
+  height: 80vh;
+  background-color: white;
   overflow: hidden;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.5s ease-in-out;
   z-index: 10000;
-  opacity: 0.9;
+  border-radius: 20px;
+  box-shadow: 0px 0px 4px 2px var(--header-color);
   .listHead {
     height: 12%;
     .title {
@@ -123,6 +124,6 @@ export default {
   }
 }
 .playerListShow {
-  bottom: 9vh;
+  right: 20px;
 }
 </style>
