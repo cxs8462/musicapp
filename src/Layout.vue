@@ -5,7 +5,7 @@
         <header-bar />
       </el-header>
       <el-container>
-        <el-aside class="sider">
+        <el-aside :class="!this.$store.state.hideBar?'sider':'hideSider'">
           <aside-bar />
         </el-aside>
         <el-main
@@ -60,6 +60,7 @@
     <context-menu>
       <li @click="$router.forward()">前进</li>
       <li @click="$router.back()">后退</li>
+      <li @click="toggleHid">{{!hideBar?'收起侧边栏':'展开侧边栏'}}</li>
     </context-menu>
     <!--    登录功能-->
     <user-menu />
@@ -102,11 +103,17 @@ export default {
   computed: {
     player() {
       return this.$store.state.player;
+    },
+    hideBar(){
+      return this.$store.state.hideBar;
     }
   },
   methods: {
     setSelect(item) {
       this.$store.commit("player/setSelectItem", item);
+    },
+    toggleHid(){
+      this.$store.commit('setHideBar',!this.hideBar)
     }
   }
 };
@@ -148,6 +155,11 @@ export default {
 }
 .sider {
   width: 16vw !important;
+  height: 84vh !important;
+  background-color: var(--sider-color) !important;
+}
+.hideSider{
+  width: auto!important;
   height: 84vh !important;
   background-color: var(--sider-color) !important;
 }
@@ -259,4 +271,8 @@ p {
 //  opacity: 0;
 //  transform: translateX(0)!important;
 //}
+.el-dialog{
+  border-radius: 20px!important;
+  box-shadow: 0px 0px 5px 5px var(--header-color)!important;
+}
 </style>

@@ -62,6 +62,7 @@ export default {
   .myMvItem {
     width: 19%;
     margin-left: 1%;
+    margin-top: 10px;
   }
 }
 </style>

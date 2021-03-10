@@ -1,7 +1,7 @@
 <template>
   <div class="AsideBar">
     <el-scrollbar style="height: 100%;">
-      <div class="loginAvatar">
+      <div class="loginAvatar" :class="{hideAvatar:this.$store.state.hideBar}">
         <div
           v-if="!$store.state.isLogin"
           @click="
@@ -12,17 +12,17 @@
           class="avatarT"
         >
           <el-avatar :size="40"><i class="el-icon-user"/></el-avatar>
-          <p>未登录</p>
+          <p v-if="!this.$store.state.hideBar">未登录</p>
         </div>
         <div @click="zx" v-else class="avatarT">
-          <el-avatar :size="50" :src="My.avatarUrl"></el-avatar>
-          <p>{{ My.nickname }}</p>
-          <span @click.stop="setUser" class="set"
+          <el-avatar :size="40" :src="My.avatarUrl"></el-avatar>
+          <p v-if="!this.$store.state.hideBar">{{ My.nickname }}</p>
+          <span v-if="!this.$store.state.hideBar" @click.stop="setUser" class="set"
             ><i class="el-icon-setting"
           /></span>
         </div>
       </div>
-      <el-menu :default-active="RouteName" class="el-menu-vertical-side">
+      <el-menu :collapse="this.$store.state.hideBar" :default-active="RouteName" class="el-menu-vertical-side">
         <el-menu-item
           v-for="item in route"
           :key="item.name"
@@ -35,11 +35,12 @@
           "
           class="sideBarItem"
         >
-          <p style="margin: 0"><i :class="item.icon"></i>{{ item.name }}</p>
+          <i :class="item.icon"></i>
+          <span style="margin: 0" slot="title">{{ item.name }}</span>
         </el-menu-item>
         <el-submenu v-for="item in subMenu" :key="item.name" :index="item.name">
           <template slot="title"
-            ><i :class="item.icon"></i>{{ item.name }}</template
+            ><i :class="item.icon"></i><span slot="title">{{ item.name }}</span></template
           >
           <el-menu-item
             v-for="i in item.children"
@@ -154,6 +155,7 @@ export default {
   height: 100%;
   .el-menu-vertical-side {
     background-color: var(--sider-color) !important;
+    overflow: hidden;
   }
   .itemSelect {
     background-color: var(--selectSide-color) !important;
@@ -192,5 +194,10 @@ export default {
       }
     }
   }
+}
+.hideAvatar{
+  padding: 5px !important;
+  width: 50px !important;
+  overflow: hidden;
 }
 </style>

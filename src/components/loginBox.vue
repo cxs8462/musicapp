@@ -141,7 +141,7 @@ export default {
     align-items: center;
     h1 {
       font-size: 40px;
-      color: white;
+      color: var(--header-color);
       margin-bottom: 20px;
     }
     .loginBg {
@@ -161,14 +161,15 @@ export default {
         transition: all 0.3s ease-in-out;
         width: 200px;
         height: 50px;
-        border: 1px solid white;
+        border: 1px solid var(--selectSide-color);
         border-radius: 10px;
-        background-color: #f39c1288;
-        color: seashell;
+        background-color: var(--content-color);
+        box-shadow: 0px 0px 3px 1px var(--header-color);
+        color: var(--header-color);
         text-align: center;
         &:focus {
           width: 300px;
-          background-color: #f39c12;
+          background-color: var(--selectSide-color);
           font-size: 20px;
           color: white;
           outline: none;
@@ -181,16 +182,16 @@ export default {
         border-radius: 10px;
         border: 0;
         color: white;
-        background-color: #e67e22;
+        background-color: var(--header-color);
         box-shadow: 0px 0px 3px 3px #ffffff66;
         cursor: pointer;
         outline: none;
         &:hover {
-          background-color: #f39c12;
+          background-color: var(--selectSide-color);
         }
       }
       .loginChange {
-        color: #ffffff;
+        color: var(--header-color);
       }
     }
   }

@@ -15,7 +15,8 @@ export default new Vuex.Store({
     loginBox: false,
     myConfig: {},
     isLogin: false,
-    loginBtn: false
+    loginBtn: false,
+    hideBar: false
   },
   mutations: {
     setLoading(state, is) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     },
     setLoginBtn(stata, is) {
       stata.loginBtn = is;
+    },
+    setHideBar(state, is) {
+      state.hideBar = is;
     }
   },
   actions: {
@@ -52,7 +56,7 @@ export default new Vuex.Store({
     },
     async getState({ commit }) {
       const r = await getStatus();
-      if (r.data.code === 200&&r.data.profile) {
+      if (r.data.code === 200 && r.data.profile) {
         Message.success("获取登录数据成功!");
         commit("setMyConfig", r.data.profile);
         commit("setIsLogin", true);
