@@ -55,6 +55,7 @@ export default {
     margin: 0;
     background-color: #f5f5f5;
     overflow: hidden;
+    box-shadow: 0px 0px 2px 1px var(--selectSide-color);
     li{
       padding: 20px;
       cursor: pointer;

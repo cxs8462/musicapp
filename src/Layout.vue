@@ -32,7 +32,7 @@
     </el-container>
     <!--    全局登录框-->
     <login-box />
-    //播放器
+    <!-- //播放器 -->
     <audio
       @ended="
         () => {

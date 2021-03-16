@@ -36,7 +36,7 @@ export const SYTLE = {
   }
 };
 
-const changeColor = (name, color) => {
+export const changeColor = (name, color) => {
   document.getElementById("layout").style.setProperty(name, color);
 };
 
