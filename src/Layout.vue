@@ -1,5 +1,10 @@
 <template>
-  <div id="layout">
+  <div
+    id="layout"
+    v-loading="$store.state.isLoading"
+    element-loading-text="数据加载中"
+    element-loading-customClass="loading"
+  >
     <el-container>
       <el-header class="header">
         <header-bar />
@@ -8,12 +13,7 @@
         <el-aside :class="!this.$store.state.hideBar ? 'sider' : 'hideSider'">
           <aside-bar />
         </el-aside>
-        <el-main
-          class="content"
-          v-loading="$store.state.isLoading"
-          element-loading-text="数据加载中"
-          element-loading-customClass="loading"
-        >
+        <el-main class="content">
           <transition name="router">
             <keep-alive>
               <router-view v-if="$route.meta.keepAlive"></router-view>

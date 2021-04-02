@@ -13,12 +13,18 @@
     <div class="result">
       <el-tabs v-model="tabSelect" @tab-click="tabClick">
         <el-tab-pane label="歌曲" name="song">
-          <song-list
-            :data="data.song"
-            set="添加到我喜欢"
-            @set="add"
-            @onSong="onSong"
-          />
+          <song-list :data="data.song" @onSong="onSong">
+            <template v-slot:set="data">
+              <el-button
+                v-if="likeList.filter(r => r === data.id).length"
+                disabled
+                >已添加</el-button
+              >
+              <el-button v-else @click.stop="() => add(data.id)"
+                >添加到我喜欢</el-button
+              >
+            </template>
+          </song-list>
         </el-tab-pane>
         <el-tab-pane label="歌手" name="singer">
           <singer-list
@@ -178,7 +184,7 @@ export default {
         song: [],
         songList: [],
         mv: [],
-        singer:[]
+        singer: []
       };
       this.page.pageNub = 1;
       this.getData(name);

@@ -129,6 +129,9 @@ export const singerFl = {
   }
 };
 export const songSet = {
+  created() {
+    this.$store.dispatch("like/getList");
+  },
   methods: {
     add(id) {
       if (!this.$store.state.isLogin) {
@@ -139,6 +142,7 @@ export const songSet = {
         if (r.code === 200) {
           if (r.songs) {
             this.$message.success("收藏成功！");
+            this.$store.dispatch("like/getList");
           } else {
             this.$message.warning("请不要重复添加！");
           }
@@ -147,6 +151,11 @@ export const songSet = {
     },
     onSong(item) {
       this.$store.dispatch("player/getSong", item.id);
+    }
+  },
+  computed: {
+    likeList() {
+      return this.$store.state.like.list;
     }
   }
 };

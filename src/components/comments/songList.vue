@@ -38,16 +38,9 @@
         </p>
       </template>
     </el-table-column>
-    <el-table-column v-if="set" align="right">
+    <el-table-column align="right">
       <template slot-scope="scope">
-        <el-button
-          @click.stop="
-            () => {
-              $emit('set', scope.row.id);
-            }
-          "
-          >{{ set }}</el-button
-        >
+        <slot name="set" :id="scope.row.id"></slot>
       </template>
     </el-table-column>
   </el-table>
@@ -56,7 +49,7 @@
 <script>
 export default {
   name: "songList",
-  props: ["data", "set", "index"],
+  props: ["data", "index"],
   methods:{
     drag(el,data){
       this.$store.commit('shareChat/setSong', {...data,type:'音乐'})

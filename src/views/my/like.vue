@@ -1,6 +1,10 @@
 <template>
   <div class="like">
-    <song-list :data="data" set="取消我喜欢" @onSong="onSong" @set="del" />
+    <song-list :data="data" @onSong="onSong">
+      <template v-slot:set="data">
+        <el-button @click.stop="()=>del(data.id)">移除</el-button>
+      </template>
+    </song-list>
   </div>
 </template>
 

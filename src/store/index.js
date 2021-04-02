@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import mv from "@/store/modules/mv";
 import player from "@/store/modules/player";
 import user from "@/store/modules/user";
+import like from "@/store/modules/like";
 import shareChat from "@/store/modules/shareChat";
 import { Login, getStatus } from "@/api/login";
 import { Message } from "element-ui";
@@ -67,6 +68,7 @@ export default new Vuex.Store({
     mv,
     player,
     user,
-    shareChat
+    shareChat,
+    like
   }
 });

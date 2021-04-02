@@ -1,7 +1,12 @@
 <template>
   <div class="newSongs">
     <ui-tag :tags="type" :tag="tag" @change="change" />
-    <song-list :data="data" @onSong="onSong" set="添加到我喜欢" @set="add" />
+    <song-list :data="data" @onSong="onSong">
+      <template v-slot:set="data">
+        <el-button v-if="likeList.filter(r=>r===data.id).length" disabled>已添加</el-button>
+        <el-button v-else @click.stop="()=>add(data.id)">添加到我喜欢</el-button>
+      </template>
+    </song-list>
   </div>
 </template>
 

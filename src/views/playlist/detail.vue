@@ -29,10 +29,13 @@
         <el-tab-pane label="歌曲列表">
           <song-list
             :data="songList"
-            set="添加到我喜欢"
-            @set="add"
             @onSong="onSong"
-          />
+          >
+            <template v-slot:set="data">
+              <el-button v-if="likeList.filter(r=>r===data.id).length" disabled>已添加</el-button>
+              <el-button v-else @click.stop="()=>add(data.id)">添加到我喜欢</el-button>
+            </template>
+          </song-list>
         </el-tab-pane>
         <el-tab-pane label="评论">
           <to-comments
@@ -137,6 +140,9 @@ export default {
     },
     avatar() {
       return this.$store.state.myConfig.avatarUrl;
+    },
+    likeList(){
+      return this.$store.state.like.list
     }
   },
   watch: {
