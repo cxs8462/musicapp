@@ -170,7 +170,7 @@ export default {
 
 <style lang="less">
 .userSpace {
-  height: 84vh;
+  height: 80vh;
   overflow: auto;
   .refresh{
     position: fixed;

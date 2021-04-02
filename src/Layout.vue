@@ -5,7 +5,7 @@
         <header-bar />
       </el-header>
       <el-container>
-        <el-aside :class="!this.$store.state.hideBar?'sider':'hideSider'">
+        <el-aside :class="!this.$store.state.hideBar ? 'sider' : 'hideSider'">
           <aside-bar />
         </el-aside>
         <el-main
@@ -14,16 +14,14 @@
           element-loading-text="数据加载中"
           element-loading-customClass="loading"
         >
-          <el-scrollbar style="height: 100%;">
-            <transition name="router">
-              <keep-alive>
-                <router-view v-if="$route.meta.keepAlive"></router-view>
-              </keep-alive>
-            </transition>
-            <transition name="router">
-              <router-view v-if="!$route.meta.keepAlive"></router-view>
-            </transition>
-          </el-scrollbar>
+          <transition name="router">
+            <keep-alive>
+              <router-view v-if="$route.meta.keepAlive"></router-view>
+            </keep-alive>
+          </transition>
+          <transition name="router">
+            <router-view v-if="!$route.meta.keepAlive"></router-view>
+          </transition>
         </el-main>
       </el-container>
       <el-footer class="footer">
@@ -60,7 +58,7 @@
     <context-menu>
       <li @click="$router.forward()">前进</li>
       <li @click="$router.back()">后退</li>
-      <li @click="toggleHid">{{!hideBar?'收起侧边栏':'展开侧边栏'}}</li>
+      <li @click="toggleHid">{{ !hideBar ? "收起侧边栏" : "展开侧边栏" }}</li>
     </context-menu>
     <!--    登录功能-->
     <user-menu />
@@ -104,7 +102,7 @@ export default {
     player() {
       return this.$store.state.player;
     },
-    hideBar(){
+    hideBar() {
       return this.$store.state.hideBar;
     }
   },
@@ -112,8 +110,8 @@ export default {
     setSelect(item) {
       this.$store.commit("player/setSelectItem", item);
     },
-    toggleHid(){
-      this.$store.commit('setHideBar',!this.hideBar)
+    toggleHid() {
+      this.$store.commit("setHideBar", !this.hideBar);
     }
   }
 };
@@ -158,8 +156,8 @@ export default {
   height: 84vh !important;
   background-color: var(--sider-color) !important;
 }
-.hideSider{
-  width: auto!important;
+.hideSider {
+  width: auto !important;
   height: 84vh !important;
   background-color: var(--sider-color) !important;
 }
@@ -254,25 +252,47 @@ p {
   }
 }
 
-.router-enter,.router-enter-to,.router-leave-to{
-  transition: all 0.6s ease-in-out!important;
+.router-enter,
+.router-enter-to,
+.router-leave-to {
+  transition: all 0.6s ease-in-out !important;
   position: absolute;
 }
-.router-enter{
-  transform: translateX(-100%)!important;
+.router-enter {
+  transform: translateX(-100%) !important;
 }
-.router-enter-to{
-  transform: translateX(0)!important;
+.router-enter-to {
+  transform: translateX(0) !important;
 }
-.router-leave-to{
-  transform: translateX(100%)!important;
+.router-leave-to {
+  transform: translateX(100%) !important;
 }
 //.router-leave{
 //  opacity: 0;
 //  transform: translateX(0)!important;
 //}
-.el-dialog{
-  border-radius: 20px!important;
-  box-shadow: 0px 0px 5px 5px var(--header-color)!important;
+.el-dialog {
+  border-radius: 20px !important;
+  box-shadow: 0px 0px 5px 5px var(--header-color) !important;
+}
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #f5f5f5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px var(--header-color);
+  border-radius: 5px;
+  background-color: #f5f5f5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 3px var(--header-color);
+  background-color: var(--header-color);
 }
 </style>
