@@ -11,7 +11,16 @@
     <el-table-column type="index" :index="index ? index : 1"> </el-table-column>
     <el-table-column width="80">
       <template slot-scope="scope">
-        <img :draggable="true" @dragstart="el=>{drag(el,scope.row)}" v-lazy="scope.row.picUrl + '?param=300y300'" />
+        <img
+          :draggable="true"
+          @dragstart="
+            el => {
+              drag(el, scope.row);
+            }
+          "
+          @dragend="dragend"
+          v-lazy="scope.row.picUrl + '?param=300y300'"
+        />
       </template>
     </el-table-column>
     <el-table-column>
@@ -47,12 +56,15 @@
 </template>
 
 <script>
+import { drag } from "@/until/mixin";
+
 export default {
   name: "songList",
   props: ["data", "index"],
-  methods:{
-    drag(el,data){
-      this.$store.commit('shareChat/setSong', {...data,type:'音乐'})
+  mixins: [drag],
+  methods: {
+    drag(el, data) {
+      this.dragStart({ ...data, type: "音乐" });
     }
   }
 };

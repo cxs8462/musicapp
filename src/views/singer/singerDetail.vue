@@ -8,7 +8,15 @@
         <el-scrollbar style="height: 100%;">
           <div class="btn">
             <h3>{{ head.name }}</h3>
-            <el-button @click="()=>{scSinger(head.id)}">收藏</el-button>
+            <el-button
+              :disabled="head.followed"
+              @click="
+                () => {
+                  scSinger(head.id);
+                }
+              "
+              >{{ head.followed ? "已收藏" : "收藏" }}</el-button
+            >
           </div>
           <p class="tags" v-if="head.alias.length">
             其他名字：{{ head.alias.join("、") }}
@@ -57,13 +65,16 @@
           </el-collapse>
         </el-tab-pane>
         <el-tab-pane label="热门歌曲">
-          <song-list
-            :data="topSong"
-            @onSong="onSong"
-          >
+          <song-list :data="topSong" @onSong="onSong">
             <template v-slot:set="data">
-              <el-button v-if="likeList.filter(r=>r===data.id).length" disabled>已添加</el-button>
-              <el-button v-else @click.stop="()=>add(data.id)">添加到我喜欢</el-button>
+              <el-button
+                v-if="likeList.filter(r => r === data.id).length"
+                disabled
+                >已添加</el-button
+              >
+              <el-button v-else @click.stop="() => add(data.id)"
+                >添加到我喜欢</el-button
+              >
             </template>
           </song-list>
         </el-tab-pane>

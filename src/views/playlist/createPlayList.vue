@@ -253,6 +253,7 @@ export default {
         createPlayList(value).then(r => {
           if (r.code === 200) this.$message.success("歌单创建成功！");
           this.getData();
+          this.$store.dispatch('getPlayList')
         });
       });
     },
@@ -282,6 +283,7 @@ export default {
         if (r.code === 200) {
           this.$message.success("删除成功！");
           this.getData();
+          this.$store.dispatch('getPlayList')
         }
       });
     },

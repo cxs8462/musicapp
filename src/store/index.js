@@ -7,6 +7,7 @@ import like from "@/store/modules/like";
 import shareChat from "@/store/modules/shareChat";
 import { Login, getStatus } from "@/api/login";
 import { Message } from "element-ui";
+import { getMyplayList } from "@/api/playlist";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -17,7 +18,8 @@ export default new Vuex.Store({
     myConfig: {},
     isLogin: false,
     loginBtn: false,
-    hideBar: false
+    hideBar: false,
+    playList: []
   },
   mutations: {
     setLoading(state, is) {
@@ -40,10 +42,13 @@ export default new Vuex.Store({
     },
     setHideBar(state, is) {
       state.hideBar = is;
+    },
+    setPlayList(state, data) {
+      state.playList = data;
     }
   },
   actions: {
-    login({ commit }, init) {
+    login({ commit, dispatch }, init) {
       const { type, data } = init;
       Login(type, data).then(r => {
         commit("setLoginBtn", false);
@@ -52,16 +57,25 @@ export default new Vuex.Store({
           commit("setLoginBox", false);
           commit("setMyConfig", r.profile);
           commit("setIsLogin", true);
+          dispatch("getPlayList");
         }
       });
     },
-    async getState({ commit }) {
+    async getState({ commit, dispatch }) {
       const r = await getStatus();
       if (r.data.code === 200 && r.data.profile) {
         Message.success("获取登录数据成功!");
         commit("setMyConfig", r.data.profile);
         commit("setIsLogin", true);
+        dispatch("getPlayList");
       }
+    },
+    getPlayList({ state, commit }) {
+      const id = state.myConfig.userId;
+      getMyplayList(id).then(s => {
+        const data = s.playlist.filter(i => i.userId === id);
+        commit("setPlayList", data);
+      });
     }
   },
   modules: {

@@ -10,7 +10,16 @@
           }
         "
       >
-        <img :draggable="true" @dragstart="el=>{drag(el,data)}" v-lazy="data.coverImgUrl + '?param=300y300'" />
+        <img
+          :draggable="true"
+          @dragstart="
+            el => {
+              drag(el, data);
+            }
+          "
+          @dragend="dragend"
+          v-lazy="data.coverImgUrl + '?param=300y300'"
+        />
       </div>
       <div class="right">
         <el-scrollbar style="height: 100%;">
@@ -24,12 +33,15 @@
 </template>
 
 <script>
+import { drag } from "@/until/mixin";
+
 export default {
   name: "playLIstHeader",
   props: ["data"],
-  methods:{
-    drag(el,data){
-      this.$store.commit('shareChat/setSong', {...data,type:'歌单'})
+  mixins: [drag],
+  methods: {
+    drag(el, data) {
+      this.dragStart({ ...data, type: "歌单" });
     }
   }
 };

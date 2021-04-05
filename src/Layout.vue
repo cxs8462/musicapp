@@ -62,6 +62,8 @@
     </context-menu>
     <!--    登录功能-->
     <user-menu />
+    <!--    拖拽菜单-->
+    <drag-box />
   </div>
 </template>
 
@@ -77,8 +79,10 @@ import UserInfo from "@/components/user/userInfo";
 import Chat from "@/views/chat/chat";
 import ContextMenu from "@/components/ContextMenu";
 import UserMenu from "@/components/UserMenu";
+import DragBox from "@/components/DragBox";
 export default {
   components: {
+    DragBox,
     UserMenu,
     ContextMenu,
     Chat,

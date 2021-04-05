@@ -8,7 +8,17 @@
     "
   >
     <div class="bfBox">
-      <img :draggable="true" @dragstart="el=>{drag(el)}" class="img" v-lazy="img + '?param=500y300'" />
+      <img
+        :draggable="true"
+        @dragstart="
+          el => {
+            drag(el);
+          }
+        "
+        @dragend="dragend"
+        class="img"
+        v-lazy="img + '?param=500y300'"
+      />
       <span class="bf"><i class="el-icon-video-play"/></span>
       <p
         v-if="set"
@@ -30,17 +40,20 @@
 </template>
 
 <script>
+import { drag } from "@/until/mixin";
+
 export default {
   name: "MvItem",
   props: ["img", "id", "name", "ms", "duration", "set"],
-  data(){
-    return{
-
-    }
-  },
-  methods:{
-    drag(el){
-      this.$store.commit('shareChat/setSong', {img:this.img,id:this.id,name:this.name,type:'mv'})
+  mixins: [drag],
+  methods: {
+    drag() {
+      this.dragStart({
+        img: this.img,
+        id: this.id,
+        name: this.name,
+        type: "mv"
+      });
     }
   }
 };
@@ -54,7 +67,7 @@ export default {
   box-shadow: 2px 2px 3px 2px var(--header-color);
   border-radius: 10px;
   overflow: hidden;
-  &:hover{
+  &:hover {
     box-shadow: 0 0 4px 3px var(--header-color);
     transform: translateY(-10px);
   }

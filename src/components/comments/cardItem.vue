@@ -8,7 +8,18 @@
     "
     class="cardItem"
   >
-    <img :draggable="true" @dragstart="el=>{drag(el)}" v-lazy="img+'?param=300y300'" class="image" lazy/>
+    <img
+      :draggable="true"
+      @dragstart="
+        el => {
+          drag(el);
+        }
+      "
+      @dragend="dragend"
+      v-lazy="img + '?param=300y300'"
+      class="image"
+      lazy
+    />
     <div style="padding: 14px;">
       <div>
         <span class="title">{{ title }}</span>
@@ -19,12 +30,20 @@
 </template>
 
 <script>
+import { drag } from "@/until/mixin";
+
 export default {
   name: "cardItem",
   props: ["img", "title", "ms", "id"],
-  methods:{
-    drag(el){
-      this.$store.commit('shareChat/setSong', {id:this.id,name:this.title,img:this.img,type:'歌单'})
+  mixins: [drag],
+  methods: {
+    drag() {
+      this.dragStart({
+        id: this.id,
+        name: this.title,
+        img: this.img,
+        type: "歌单"
+      });
     }
   }
 };
@@ -38,10 +57,10 @@ export default {
   font-size: 22px;
   color: darkgray;
 }
-.cardItem{
+.cardItem {
   border-radius: 5px;
   box-shadow: 0 0 4px 0px var(--header-color);
-  &:hover{
+  &:hover {
     box-shadow: 0 0 4px 2px var(--header-color);
   }
 }

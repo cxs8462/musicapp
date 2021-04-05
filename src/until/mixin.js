@@ -210,3 +210,19 @@ export const setSinger = {
     }
   }
 };
+
+export const drag = {
+  methods: {
+    dragStart(data) {
+      if (!this.$store.state.isLogin) {
+        this.$message.warning("未登录状态 ,请先登录！");
+        return;
+      }
+      this.$store.commit("shareChat/setSong", data);
+      this.$store.commit("shareChat/setDragShow", true);
+    },
+    dragend() {
+      this.$store.commit("shareChat/setDragShow", false);
+    }
+  }
+};

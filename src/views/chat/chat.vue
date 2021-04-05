@@ -54,22 +54,12 @@
     </el-dialog>
     <div
       class="mini"
-      @dragover="dragUp"
-      @drop="drop"
       v-if="!show"
       @click="mainShow"
-      @dragleave="dragLeave"
-      ref="mini"
     >
-      <el-tooltip
-        effect="dark"
-        content="拖入网站任意对象可快速发送对象信息！"
-        placement="left"
-      >
-        <el-badge :hidden="toastNum === 0" :value="toastNum" class="item">
-          <i class="el-icon-s-promotion"></i>
-        </el-badge>
-      </el-tooltip>
+      <el-badge :hidden="toastNum === 0" :value="toastNum" class="item">
+        <i class="el-icon-s-promotion"></i>
+      </el-badge>
     </div>
   </div>
 </template>
@@ -134,47 +124,6 @@ export default {
     zx(id) {
       this.$store.commit("user/setUserId", id);
     },
-    dragUp(el) {
-      el.preventDefault();
-      const s = this.$refs.mini
-      s.classList.add('big')
-    },
-    dragLeave(el){
-      el.preventDefault();
-      const s = this.$refs.mini
-      s.classList.remove('big')
-    },
-    drop(el) {
-      el.preventDefault();
-      const s = this.$refs.mini
-      s.classList.remove('big')
-      if (this.isLoagin) {
-        if (!this.isConnect) this.toConnect();
-        const obj = this.shareCreate(this.$store.state.shareChat.song);
-        this.$socket.emit("message", obj);
-      } else {
-        this.$message.warning("未登录状态 ,请先登录！");
-      }
-    },
-    shareCreate(data) {
-      const obj = { name: data.name, id: data.id, type: data.type };
-      switch (data.type) {
-        case "歌单":
-          obj.img = data.img || data.coverImgUrl;
-          break;
-        case "音乐":
-          obj.img = data.picUrl || data.album.blurPicUrl;
-          break;
-        case "歌手":
-          obj.img = data.picUrl;
-          break;
-        case "mv":
-          obj.img = data.img;
-          break;
-      }
-      obj.img += "?param=300y300";
-      return obj;
-    },
     onDetail(data) {
       switch (data.type) {
         case "歌单":
@@ -205,7 +154,7 @@ export default {
     message(data) {
       data.isSelf = data.user.id === this.user.userId;
       this.messageList.push(data);
-      console.log(data)
+      console.log(data);
       if (!this.show) this.toastNum++;
       this.$nextTick(() => {
         const chatbox = this.$refs.chatbox.$el.children[0];
@@ -277,7 +226,7 @@ export default {
       margin: 0 20px;
     }
   }
-  .big{
+  .big {
     transform: scale(1.3);
   }
 }

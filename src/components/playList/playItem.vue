@@ -9,7 +9,16 @@
   >
     <div class="img">
       <p class="playCount">播放量 : {{ playCount }}万</p>
-      <img :draggable="true" @dragstart="el=>{drag(el,data)}" v-lazy="data.coverImgUrl + '?param=300y300'" />
+      <img
+        :draggable="true"
+        @dragstart="
+          el => {
+            drag(el, data);
+          }
+        "
+        @dragend="dragend"
+        v-lazy="data.coverImgUrl + '?param=300y300'"
+      />
       <p class="bofang"><i class="el-icon-video-play"></i></p>
       <p
         class="set"
@@ -29,6 +38,8 @@
 </template>
 
 <script>
+import { drag } from "@/until/mixin";
+
 export default {
   name: "playItem",
   computed: {
@@ -36,10 +47,11 @@ export default {
       return Math.floor(this.data.playCount / 10000);
     }
   },
+  mixins: [drag],
   props: ["data", "set"],
-  methods:{
-    drag(el,data){
-      this.$store.commit('shareChat/setSong', {...data,type:'歌单'})
+  methods: {
+    drag(el, data) {
+      this.dragStart({ ...data, type: "歌单" });
     }
   }
 };
@@ -55,7 +67,7 @@ export default {
   box-sizing: border-box;
   border-radius: 5px;
   overflow: hidden;
-  &:hover{
+  &:hover {
     box-shadow: 0px 0px 3px 2px var(--header-color);
   }
   .img {
