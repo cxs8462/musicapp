@@ -35,13 +35,13 @@
             class="cdItem"
             @click="
               () => {
-                likeMv(info.id, count.liked ? 0 : 1);
+                likeMv(info.id, detail.subed ? 0 : 1);
               }
             "
           >
             <i
-              :class="count.liked ? 'el-icon-star-on' : 'el-icon-star-off'"
-            />{{ count.liked ? "已" : "" }}喜欢:{{ count.likedCount }}
+              :class="detail.subed ? 'el-icon-star-on' : 'el-icon-star-off'"
+            />{{ detail.subed ? "已" : "" }}喜欢:{{ count.likedCount }}
           </p>
           <p class="cdItem">
             <i class="el-icon-chat-line-round" />评论:{{ count.commentCount }}
@@ -101,6 +101,7 @@ export default {
       info: {},
       url: "",
       count: {},
+      detail:{},
       loading: false,
       page: {
         pageSize: 20,
@@ -114,6 +115,7 @@ export default {
     async getMvData(id) {
       this.loading = true;
       const r = await mv(id);
+      this.detail = r[0]
       this.info = r[0].data;
       this.count = r[1];
       this.url = r[2].data.url;
