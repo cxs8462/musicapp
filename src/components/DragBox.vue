@@ -133,9 +133,7 @@ export default {
           });
           break;
         case "mv":
-          likeMv(id, 1).then(() => {
-            this.$message.success("添加成功！");
-          });
+          likeMv(id, 1);
           break;
         case "分享":
           this.toConnect();
