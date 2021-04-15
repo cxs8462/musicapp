@@ -33,7 +33,6 @@ Axios.interceptors.response.use(
     store.commit("setLoading", false);
     const res = error.response.data;
     if (res.code === 301) {
-      Message.info("未登录状态");
       return error;
     }
     Message.info(res.message || res.msg);

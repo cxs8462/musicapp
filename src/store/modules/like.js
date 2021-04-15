@@ -13,7 +13,7 @@ export default {
   actions: {
     getList({ commit }) {
       likeList().then(r => {
-        commit("setList", r.ids);
+        if (r.ids) commit("setList", r.ids);
       });
     }
   }

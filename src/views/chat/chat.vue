@@ -180,6 +180,7 @@ export default {
     .chats {
       height: 59vh;
       overflow-y: auto;
+      padding-right: 10px;
     }
   }
   .mini {
