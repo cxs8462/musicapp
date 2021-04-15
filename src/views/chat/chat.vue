@@ -10,31 +10,29 @@
         <el-row :gutter="8">
           <el-col :offset="1" :span="16">
             <el-card class="left">
-              <el-scrollbar ref="chatbox" style="height: 100%;">
+              <div class="chats" ref="chatbox">
                 <bubble
                   v-for="item in messageList"
                   :key="item.time.init"
                   v-bind="item"
                   @onDetail="onDetail"
                 />
-              </el-scrollbar>
+              </div>
             </el-card>
           </el-col>
           <el-col :offset="1" :span="6">
             <el-card class="right">
-              <el-scrollbar style="height: 60vh;">
-                <avatar
-                  v-for="item in personList"
-                  :name="item.name"
-                  :src="item.avatar"
-                  :key="item.id"
-                  @click.native="
-                    () => {
-                      zx(item.id);
-                    }
-                  "
-                />
-              </el-scrollbar>
+              <avatar
+                v-for="item in personList"
+                :name="item.name"
+                :src="item.avatar"
+                :key="item.id"
+                @click.native="
+                  () => {
+                    zx(item.id);
+                  }
+                "
+              />
             </el-card>
           </el-col>
         </el-row>
@@ -52,11 +50,7 @@
         <p><i class="el-icon-loading"></i>{{ toast }}</p>
       </div>
     </el-dialog>
-    <div
-      class="mini"
-      v-if="!show"
-      @click="mainShow"
-    >
+    <div class="mini" v-if="!show" @click="mainShow">
       <el-badge :hidden="toastNum === 0" :value="toastNum" class="item">
         <i class="el-icon-s-promotion"></i>
       </el-badge>
@@ -154,11 +148,10 @@ export default {
     message(data) {
       data.isSelf = data.user.id === this.user.userId;
       this.messageList.push(data);
-      console.log(data);
       if (!this.show) this.toastNum++;
       this.$nextTick(() => {
-        const chatbox = this.$refs.chatbox.$el.children[0];
-        chatbox.scrollTo(0, chatbox.scrollHeight);
+        const chatbox = this.$refs.chatbox;
+        chatbox.scrollTo({ top: chatbox.scrollHeight, behavior: "smooth" });
       });
     },
     loginComplete() {
@@ -177,15 +170,16 @@ export default {
     height: 60vh;
     padding: 10px;
     .left {
-      & /deep/ .el-card__body {
-        height: 60vh;
-      }
       height: 62vh;
-      overflow-y: hidden;
+      overflow: hidden;
     }
     .right {
       height: 62vh;
       overflow-y: hidden;
+    }
+    .chats {
+      height: 59vh;
+      overflow-y: auto;
     }
   }
   .mini {
