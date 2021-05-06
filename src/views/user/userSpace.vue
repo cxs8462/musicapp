@@ -1,6 +1,6 @@
 <template>
   <div class="userSpace">
-    <div v-infinite-scroll="load" :infinite-scroll-disabled="begin">
+    <div v-infinite-scroll="load" :infinite-scroll-immediate="loadStart" :infinite-scroll-disabled="begin" infinite-scroll-distance="50" style="min-height: 50vh;">
       <dt-item
         v-for="item in data"
         :key="item.dtid"
@@ -30,7 +30,7 @@
         </div>
       </div>
     </el-dialog>
-    <div class="refresh" @click="refresh" :class="{setroute:isRefresh}">
+    <div class="refresh" @click="refresh" :class="{ setroute: isRefresh }">
       <i class="el-icon-refresh"></i>
     </div>
   </div>
@@ -54,13 +54,14 @@ export default {
       begin: true,
       showComment: false,
       comments: [],
-      isRefresh:false,
+      isRefresh: false,
       page: {
         pageSize: 20,
         pageNub: 1,
         total: 0
       },
-      threadId: 0
+      threadId: 0,
+      loadStart:false,
     };
   },
   watch: {
@@ -155,13 +156,13 @@ export default {
         });
       });
     },
-    refresh(){
-      this.isRefresh = true
+    refresh() {
+      this.isRefresh = true;
       getAllDt().then(r => {
         this.data = r.event;
         this.lastTime = r.lasttime;
         this.begin = false;
-        this.isRefresh = false
+        this.isRefresh = false;
       });
     }
   }
@@ -172,7 +173,7 @@ export default {
 .userSpace {
   height: 80vh;
   overflow: auto;
-  .refresh{
+  .refresh {
     position: fixed;
     top: 10vh;
     left: 50%;
@@ -185,25 +186,25 @@ export default {
     cursor: pointer;
     transition: 0.5s all;
     opacity: 0.7;
-    &:hover{
+    &:hover {
       background-color: var(--selectSide-color);
-      transform:rotate(-180deg);
+      transform: rotate(-180deg);
     }
     border-radius: 50%;
-    i{
+    i {
       font-size: 30px;
       color: white;
     }
   }
-  @keyframes route{
-    0%{
+  @keyframes route {
+    0% {
       transform: rotate(0);
     }
-    100%{
+    100% {
       transform: rotate(-720deg);
     }
   }
-  .setroute{
+  .setroute {
     animation: route 2s linear infinite;
   }
 }
