@@ -16,7 +16,10 @@
             @click="() => toGo(item.name)"
           >
             <el-tooltip effect="dark" :content="item.name" placement="left">
-              <i :class="item.meta.icon"></i>
+              <div style="font-size: 16px;color: white;">
+                <i :class="item.meta.icon" style="font-size: 16px"></i>
+                <span style="margin-left: 5px">{{item.name}}</span>
+              </div>
             </el-tooltip>
           </div>
         </div>

@@ -13,9 +13,7 @@ exec('npm info NeteaseCloudMusicApi version', (err, stdout, stderr) => {
   if (!err) {
     let version = stdout.trim()
     if (packageJSON.version < version) {
-      console.log(
-        `${version}: ${packageJSON.version}`,
-      )
+      
     }
   }
 })

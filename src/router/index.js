@@ -173,7 +173,7 @@ export const routes = [
       },
       {
         path: "createplaylist",
-        name: "我创建的歌单",
+        name: "我的歌单",
         component: () => import("@/views/playlist/createPlayList"),
         meta: {
           keepAlive: false,
